@@ -4,11 +4,13 @@ defmodule LiveViewStudioWeb.SalesDashboardLive do
   alias LiveViewStudio.Sales
 
   def mount(_params, _session, socket) do
-    if connected?(socket) do
-      :timer.send_interval(1000, self(), :tick)
-    end
+    socket =
+      assign_stats(socket)
+      |> assign(refresh: 1)
+      |> assign(last_updated_at: Timex.now())
 
-    socket = assign_stats(socket)
+    if connected?(socket), do: schedule_refresh(socket)
+
     {:ok, socket}
   end
 
@@ -42,10 +44,24 @@ defmodule LiveViewStudioWeb.SalesDashboardLive do
       </span>
     </div>
     </div>
-    <button phx-click="refresh">
-    <img src="images/refresh.svg">
-    Refresh
-    </button>
+    <div class="controls">
+      <form phx-change="select-refresh">
+      <label for="refresh">
+       Refresh every
+       </label>
+       <select name="refresh" >
+       <%= options_for_select(refresh_options(), @refresh) %>
+       </select>
+       </form>
+       <button phx-click="refresh">
+       <img src="images/refresh.svg">
+       Refresh
+       </button>
+        <label>
+         last_update:
+          <%= Timex.format!(@last_updated_at, "%H:%M:%S", :strftime) %>
+       </label>
+    </div>
     </div>
     """
   end
@@ -55,8 +71,16 @@ defmodule LiveViewStudioWeb.SalesDashboardLive do
     {:noreply, socket}
   end
 
+  def handle_event("select-refresh", %{"refresh" => refresh}, socket) do
+    refresh = String.to_integer(refresh)
+    socket = assign(socket, refresh: refresh)
+    {:noreply, socket}
+  end
+
   def handle_info(:tick, socket) do
     socket = assign_stats(socket)
+    socket = assign(socket, :last_updated_at, Timex.now())
+    schedule_refresh(socket)
     {:noreply, socket}
   end
 
@@ -66,5 +90,13 @@ defmodule LiveViewStudioWeb.SalesDashboardLive do
       sales_amount: Sales.sales_amount(),
       satisfaction: Sales.satisfaction()
     )
+  end
+
+  defp refresh_options do
+    [{"1s", 1}, {"5s", 5}, {"15s", 15}, {"30s", 30}, {"60s", 60}]
+  end
+
+  defp schedule_refresh(socket) do
+    Process.send_after(self(), :tick, socket.assigns.refresh * 1000)
   end
 end
