@@ -68,19 +68,7 @@ defmodule LiveViewStudioWeb.FlightsLive do
   end
 
   def handle_info({:search, flight_info}, socket) do
-    query =
-      cond do
-        not Enum.empty?(Flights.search_by_number(flight_info)) ->
-          Flights.search_by_number(flight_info)
-
-        not Enum.empty?(Flights.search_by_airport(flight_info)) ->
-          Flights.search_by_airport(flight_info)
-
-        true ->
-          []
-      end
-
-    case query do
+    case Flights.search_by_number(flight_info) do
       [] ->
         socket =
           socket
