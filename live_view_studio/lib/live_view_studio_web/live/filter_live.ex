@@ -4,7 +4,7 @@ defmodule LiveViewStudioWeb.FilterLive do
   alias LiveViewStudio.Boats
 
   def mount(_params, _session, socket) do
-    socket = assign(socket, boats: Boats.list_boats(), type: "", prices: [])
+    socket = assign_defaults(socket)
     {:ok, socket, temporary_assigns: [boats: []]}
   end
 
@@ -23,6 +23,7 @@ defmodule LiveViewStudioWeb.FilterLive do
             <%= price_checkbox(%{price: price, checked: price in @prices}) %>
           <% end %>
         </div>
+        <a href="#" phx-click="clean-filters">Clear All</a>
       </div>
     </form>
     <div class="boats">
@@ -56,11 +57,20 @@ defmodule LiveViewStudioWeb.FilterLive do
     {:noreply, socket}
   end
 
+  def handle_event("clean-filters", _, socket) do
+    socket = assign_defaults(socket)
+    {:noreply, socket}
+  end
+
   defp price_checkbox(assigns) do
     ~H"""
      <input type="checkbox" id={@price} name="prices[]" value={@price} checked={@checked}/>
      <label for={@price}><%= @price %></label>
     """
+  end
+
+  defp assign_defaults(socket) do
+    assign(socket, boats: Boats.list_boats(), type: "", prices: [])
   end
 
   defp type_options do
