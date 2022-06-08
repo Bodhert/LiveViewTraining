@@ -92,6 +92,7 @@ defmodule LiveViewStudioWeb.AutocompleteLive do
   end
 
   def handle_event("city-search", %{"city" => city_code}, socket) do
+    city_code |> IO.inspect(label: "#{__MODULE__}: >>>>>> city <<<<<<\n")
     send(self(), {:run_city_search, city_code})
 
     socket =
