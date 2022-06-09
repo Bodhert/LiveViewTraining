@@ -223,3 +223,87 @@ alias LiveViewStudio.Stores.Store
   hours: "8am - 10pm M-F"
 }
 |> Repo.insert!()
+
+alias LiveViewStudio.Flights.Flight
+
+%Flight{
+  number: "450",
+  origin: "DEN",
+  destination: "ORD",
+  departure_time: Timex.shift(Timex.now(), days: 1),
+  arrival_time: Timex.shift(Timex.now(), days: 1, hours: 2)
+}
+|> Repo.insert!()
+
+%Flight{
+  number: "450",
+  origin: "DEN",
+  destination: "ORD",
+  departure_time: Timex.shift(Timex.now(), days: 2),
+  arrival_time: Timex.shift(Timex.now(), days: 2, hours: 2)
+}
+|> Repo.insert()
+
+%Flight{
+  number: "450",
+  origin: "DEN",
+  destination: "ORD",
+  departure_time: Timex.shift(Timex.now(), days: 3),
+  arrival_time: Timex.shift(Timex.now(), days: 3, hours: 2)
+}
+|> Repo.insert()
+
+%Flight{
+  number: "860",
+  origin: "DFW",
+  destination: "ORD",
+  departure_time: Timex.shift(Timex.now(), days: 1),
+  arrival_time: Timex.shift(Timex.now(), days: 1, hours: 3)
+}
+|> Repo.insert()
+
+%Flight{
+  number: "860",
+  origin: "DFW",
+  destination: "ORD",
+  departure_time: Timex.shift(Timex.now(), days: 2),
+  arrival_time: Timex.shift(Timex.now(), days: 2, hours: 3)
+}
+|> Repo.insert()
+
+%Flight{
+  number: "860",
+  origin: "DFW",
+  destination: "ORD",
+  departure_time: Timex.shift(Timex.now(), days: 3),
+  arrival_time: Timex.shift(Timex.now(), days: 3, hours: 3)
+}
+|> Repo.insert()
+
+%Flight{
+  number: "740",
+  origin: "DAB",
+  destination: "DEN",
+  departure_time: Timex.shift(Timex.now(), days: 1),
+  arrival_time: Timex.shift(Timex.now(), days: 1, hours: 4)
+}
+|> Repo.insert()
+
+%Flight{
+  number: "740",
+  origin: "DAB",
+  destination: "DEN",
+  departure_time: Timex.shift(Timex.now(), days: 2),
+  arrival_time: Timex.shift(Timex.now(), days: 2, hours: 4)
+}
+|> Repo.insert()
+
+%Flight{
+  number: "740",
+  origin: "DAB",
+  destination: "DEN",
+  departure_time: Timex.shift(Timex.now(), days: 3),
+  arrival_time:
+    Timex.shift(Timex.now(), days: 3, hours: 4)
+    |> Repo.insert()
+}
