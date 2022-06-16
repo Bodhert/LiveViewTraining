@@ -3,8 +3,8 @@ defmodule LiveViewStudio.Flights.Flight do
   import Ecto.Changeset
 
   schema "flight" do
-    field(:arrival_time, :utc_datetime_usec)
-    field(:departure_time, :utc_datetime_usec)
+    field(:arrival_time, :naive_datetime_usec)
+    field(:departure_time, :naive_datetime_usec)
     field(:destination, :string)
     field(:number, :string)
     field(:origin, :string)

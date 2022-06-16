@@ -230,8 +230,12 @@ alias LiveViewStudio.Flights.Flight
   number: "450",
   origin: "DEN",
   destination: "ORD",
-  departure_time: Timex.shift(Timex.now(), days: 1),
-  arrival_time: Timex.shift(Timex.now(), days: 1, hours: 2)
+  departure_time:
+    Timex.shift(Timex.now(), days: 1)
+    |> Timex.to_naive_datetime(),
+  arrival_time:
+    Timex.shift(Timex.now(), days: 1, hours: 2)
+    |> Timex.to_naive_datetime()
 }
 |> Repo.insert!()
 
@@ -239,8 +243,8 @@ alias LiveViewStudio.Flights.Flight
   number: "450",
   origin: "DEN",
   destination: "ORD",
-  departure_time: Timex.shift(Timex.now(), days: 2),
-  arrival_time: Timex.shift(Timex.now(), days: 2, hours: 2)
+  departure_time: Timex.shift(Timex.now(), days: 2) |> Timex.to_naive_datetime(),
+  arrival_time: Timex.shift(Timex.now(), days: 2, hours: 2) |> Timex.to_naive_datetime()
 }
 |> Repo.insert()
 
@@ -248,8 +252,8 @@ alias LiveViewStudio.Flights.Flight
   number: "450",
   origin: "DEN",
   destination: "ORD",
-  departure_time: Timex.shift(Timex.now(), days: 3),
-  arrival_time: Timex.shift(Timex.now(), days: 3, hours: 2)
+  departure_time: Timex.shift(Timex.now(), days: 3) |> Timex.to_naive_datetime(),
+  arrival_time: Timex.shift(Timex.now(), days: 3, hours: 2) |> Timex.to_naive_datetime()
 }
 |> Repo.insert()
 
@@ -257,8 +261,8 @@ alias LiveViewStudio.Flights.Flight
   number: "860",
   origin: "DFW",
   destination: "ORD",
-  departure_time: Timex.shift(Timex.now(), days: 1),
-  arrival_time: Timex.shift(Timex.now(), days: 1, hours: 3)
+  departure_time: Timex.shift(Timex.now(), days: 1) |> Timex.to_naive_datetime(),
+  arrival_time: Timex.shift(Timex.now(), days: 1, hours: 3) |> Timex.to_naive_datetime()
 }
 |> Repo.insert()
 
@@ -266,8 +270,8 @@ alias LiveViewStudio.Flights.Flight
   number: "860",
   origin: "DFW",
   destination: "ORD",
-  departure_time: Timex.shift(Timex.now(), days: 2),
-  arrival_time: Timex.shift(Timex.now(), days: 2, hours: 3)
+  departure_time: Timex.shift(Timex.now(), days: 2) |> Timex.to_naive_datetime(),
+  arrival_time: Timex.shift(Timex.now(), days: 2, hours: 3) |> Timex.to_naive_datetime()
 }
 |> Repo.insert()
 
@@ -275,8 +279,8 @@ alias LiveViewStudio.Flights.Flight
   number: "860",
   origin: "DFW",
   destination: "ORD",
-  departure_time: Timex.shift(Timex.now(), days: 3),
-  arrival_time: Timex.shift(Timex.now(), days: 3, hours: 3)
+  departure_time: Timex.shift(Timex.now(), days: 3) |> Timex.to_naive_datetime(),
+  arrival_time: Timex.shift(Timex.now(), days: 3, hours: 3) |> Timex.to_naive_datetime()
 }
 |> Repo.insert()
 
@@ -284,8 +288,8 @@ alias LiveViewStudio.Flights.Flight
   number: "740",
   origin: "DAB",
   destination: "DEN",
-  departure_time: Timex.shift(Timex.now(), days: 1),
-  arrival_time: Timex.shift(Timex.now(), days: 1, hours: 4)
+  departure_time: Timex.shift(Timex.now(), days: 1) |> Timex.to_naive_datetime(),
+  arrival_time: Timex.shift(Timex.now(), days: 1, hours: 4) |> Timex.to_naive_datetime()
 }
 |> Repo.insert()
 
@@ -293,8 +297,8 @@ alias LiveViewStudio.Flights.Flight
   number: "740",
   origin: "DAB",
   destination: "DEN",
-  departure_time: Timex.shift(Timex.now(), days: 2),
-  arrival_time: Timex.shift(Timex.now(), days: 2, hours: 4)
+  departure_time: Timex.shift(Timex.now(), days: 2) |> Timex.to_naive_datetime(),
+  arrival_time: Timex.shift(Timex.now(), days: 2, hours: 4) |> Timex.to_naive_datetime()
 }
 |> Repo.insert()
 
@@ -302,8 +306,7 @@ alias LiveViewStudio.Flights.Flight
   number: "740",
   origin: "DAB",
   destination: "DEN",
-  departure_time: Timex.shift(Timex.now(), days: 3),
-  arrival_time:
-    Timex.shift(Timex.now(), days: 3, hours: 4)
-    |> Repo.insert()
+  departure_time: Timex.shift(Timex.now(), days: 3) |> Timex.to_naive_datetime(),
+  arrival_time: Timex.shift(Timex.now(), days: 3, hours: 4) |> Timex.to_naive_datetime()
 }
+|> Repo.insert()
