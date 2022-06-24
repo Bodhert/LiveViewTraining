@@ -4,13 +4,24 @@ defmodule LiveViewStudioWeb.GitReposLive do
 
   def mount(_params, _session, socket) do
     socket = assign_defaults(socket)
-    {:ok, socket, temporary_assigns: [repos: []]}
+    {:ok, socket}
   end
 
   def render(assigns) do
     ~H"""
     <h1>Trending Git Repos</h1>
     <div id="repos">
+    <form phx-change="filter">
+        <div class="filters">
+          <select name="language">
+            <%= options_for_select(type_languaje_options(), @language)  %>
+          </select>
+          <select name="license">
+            <%= options_for_select(license_options(), @license) %>
+          </select>
+          <a href="#" phx-click="clean-filters">Clear All</a>
+        </div>
+    </form>
     <div class="repos">
     <ul>
       <%= for repo <- @repos do %>
@@ -55,7 +66,37 @@ defmodule LiveViewStudioWeb.GitReposLive do
     """
   end
 
+  def handle_event("filter", %{"language" => language, "license" => license}, socket) do
+    params = [language: language, license: license]
+    repos = GitRepos.list_git_repos(params)
+    socket = assign(socket, params ++ [repos: repos])
+    {:noreply, socket}
+  end
+
+  def handle_event("clean-filters", _, socket) do
+    socket = assign_defaults(socket)
+    {:noreply, socket}
+  end
+
   defp assign_defaults(socket) do
-    assign(socket, repos: GitRepos.list_git_repos())
+    assign(socket, repos: GitRepos.list_git_repos(), language: "", license: "", loading: false)
+  end
+
+  defp type_languaje_options do
+    [
+      "All Languages": "",
+      "Elixir": "elixir",
+      Ruby: "ruby",
+      Javascript: "javascript"
+    ]
+  end
+
+  defp license_options do
+    [
+      "All Licenses": "",
+      MIT: "MIT",
+      Apache: "Apache",
+      BSDL: "bsdl"
+    ]
   end
 end
