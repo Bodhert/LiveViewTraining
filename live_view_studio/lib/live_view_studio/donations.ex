@@ -121,4 +121,8 @@ defmodule LiveViewStudio.Donations do
   def change_donation(%Donation{} = donation, attrs \\ %{}) do
     Donation.changeset(donation, attrs)
   end
+
+  def count_donations do
+    Repo.aggregate(Donation, :count, :id)
+  end
 end
