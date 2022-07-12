@@ -12,13 +12,13 @@
           <thead>
             <tr>
               <th class="item">
-                <%= sort_link(@socket, "Item", :item, @options)%>
+                <%= Helpers.sort_link(@socket, __MODULE__ ,"Item", :item, @options)%>
               </th>
               <th>
-                <%= sort_link(@socket, "Quantity", :quantity, @options)%>
+                <%= Helpers.sort_link(@socket, __MODULE__, "Quantity", :quantity, @options)%>
               </th>
               <th>
-                <%= sort_link(@socket, "Days Until Expires", :days_until_expires, @options)%>
+                <%= Helpers.sort_link(@socket, __MODULE__, "Days Until Expires", :days_until_expires, @options)%>
               </th>
             </tr>
           </thead>
@@ -44,21 +44,24 @@
         <div class="footer">
         <div class="pagination">
           <%= if @options.page > 1 do %>
-            <%= pagination_link(@socket, 
+            <%= Helpers.pagination_link(@socket,
+                                __MODULE__, 
                                 "Previous",
                                 @options.page - 1,
                                 @options,
                                 "previous") %>
           <% end %>
             <%= for i <- (@options.page - 2)..(@options.page + 2), i > 0 and i <= ceil(@total_donations / @options.per_page)  do %>
-              <%= pagination_link(@socket, 
+              <%= Helpers.pagination_link(@socket,
+                                  __MODULE__,
                                   i,
                                   i,
                                   @options,
                                     (if i == @options.page, do: "active")) %>
             <% end %>
             <%= if (@options.page * @options.per_page) < @total_donations do  %>
-              <%= pagination_link(@socket, 
+              <%= Helpers.pagination_link(@socket,
+                                  __MODULE__,
                                   "Next",
                                   @options.page + 1,
                                   @options,

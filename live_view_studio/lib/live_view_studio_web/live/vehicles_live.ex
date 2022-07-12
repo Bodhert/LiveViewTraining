@@ -2,6 +2,10 @@ defmodule LiveViewStudioWeb.VehiclesLive do
   use LiveViewStudioWeb, :live_view
 
   alias LiveViewStudio.Vehicles
+  alias LiveViewStudio.Helpers
+
+  @permitted_sort_bys ~w(color make model id)
+  @permitted_sort_orders ~w(asc desc)
 
   def mount(_params, _session, socket) do
     {:ok, assign(socket, total_vehicles: Vehicles.count_vehicles()),
@@ -9,14 +13,26 @@ defmodule LiveViewStudioWeb.VehiclesLive do
   end
 
   def handle_params(params, _url, socket) do
-    page = String.to_integer(params["page"] || "1")
-    per_page = String.to_integer(params["per_page"] || "10")
+    page = Helpers.param_to_integer(params["page"], 1)
+    per_page = Helpers.param_to_integer(params["per_page"], 5)
+
+    sort_by =
+      params
+      |> Helpers.param_of_first_permitted("sort_by", @permitted_sort_bys)
+      |> String.to_atom()
+
+    sort_order =
+      params
+      |> Helpers.param_of_first_permitted("sort_order", @permitted_sort_orders)
+      |> String.to_atom()
 
     paginate_options = %{page: page, per_page: per_page}
+    sort_options = %{sort_by: sort_by, sort_order: sort_order}
+    vehicles = Vehicles.list_vehicles(paginate: paginate_options, sort: sort_options)
 
-    vehicles = Vehicles.list_vehicles(paginate: paginate_options)
+    socket =
+      assign(socket, options: Map.merge(paginate_options, sort_options), vehicles: vehicles)
 
-    socket = assign(socket, options: paginate_options, vehicles: vehicles)
     {:noreply, socket}
   end
 
@@ -33,18 +49,5 @@ defmodule LiveViewStudioWeb.VehiclesLive do
       )
 
     {:noreply, socket}
-  end
-
-  defp pagination_link(socket, text, page, per_page, class) do
-    live_patch(text,
-      to:
-        Routes.live_path(
-          socket,
-          __MODULE__,
-          page: page,
-          per_page: per_page
-        ),
-      class: class
-    )
   end
 end
