@@ -1,5 +1,5 @@
 defmodule LiveViewStudio.Helpers do
-  use LiveViewStudioWeb, :live_view
+  use LiveViewStudioWeb, :live_component
 
   def param_of_first_permitted(params, key, permitted) do
     value = params[key]

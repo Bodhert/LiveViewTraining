@@ -1,89 +1,95 @@
 defmodule LiveViewStudioWeb.ServersLive do
   use LiveViewStudioWeb, :live_view
   alias LiveViewStudio.Servers
+  alias LiveViewStudio.Servers.Server
+  alias LiveViewStudio.Helpers
 
   def mount(_params, _session, socket) do
     servers = Servers.list_servers()
+    changeset = Servers.change_server(%Server{})
 
-    socket = assign(socket, servers: servers, selected_server: hd(servers))
+    socket = assign(socket, servers: servers, changeset: changeset, selected_server: hd(servers))
     {:ok, socket}
   end
 
   def handle_params(%{"name" => name}, _url, socket) do
     server = Servers.get_server_by_name(name)
-    socket = assign(socket, selected_server: server, page_title: server.name)
+
+    socket =
+      assign(socket,
+        selected_server: server,
+        page_title: "What's up #{server.name}?"
+      )
+
     {:noreply, socket}
   end
 
-  def handle_params(_, _url, socket) do
+  def handle_params(_params, _url, socket) do
+    if socket.assigns.live_action == :new do
+      changeset = Servers.change_server(%Server{})
+
+      socket =
+        assign(socket,
+          selected_server: nil,
+          changeset: changeset
+        )
+
+      {:noreply, socket}
+    else
+      socket =
+        assign(socket,
+          selected_server: hd(socket.assigns.servers)
+        )
+
+      {:noreply, socket}
+    end
+
     {:noreply, socket}
   end
 
-  def render(assigns) do
-    ~H"""
-     <h1>Servers</h1>
-    <div id="servers">
-      <div class="sidebar">
-        <nav>
-          <%= for server <- @servers do %>
-           <div>
-              <%= live_patch link_body(server),
-              replace: true,
-              to: Routes.live_path(@socket, __MODULE__, name: server.name),
-              class: if server == @selected_server, do: "active" %>
-           </div>
-          <% end %>
-        </nav>
-      </div>
-      <div class="main">
-        <div class="wrapper">
-          <div class="card">
-            <div class="header">
-              <h2><%= @selected_server.name %></h2>
-              <span class={@selected_server.status}>
-                <%= @selected_server.status %>
-              </span>
-            </div>
-            <div class="body">
-              <div class="row">
-                <div class="deploys">
-                  <img src="/images/deploy.svg">
-                  <span>
-                    <%= @selected_server.deploy_count %> deploys
-                  </span>
-                </div>
-                <span>
-                  <%= @selected_server.size %> MB
-                </span>
-                <span>
-                  <%= @selected_server.framework %>
-                </span>
-              </div>
-              <h3>Git Repo</h3>
-              <div class="repo">
-                <%= @selected_server.git_repo %>
-              </div>
-              <h3>Last Commit</h3>
-              <div class="commit">
-                <%= @selected_server.last_commit_id %>
-              </div>
-              <blockquote>
-                <%= @selected_server.last_commit_message %>
-              </blockquote>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    """
+  def handle_event("save", %{"server" => params}, socket) do
+    params |> IO.inspect(label: "#{__MODULE__}: >>>>>> params <<<<<<\n")
+
+    case Servers.create_server(params) do
+      {:ok, server} ->
+        socket =
+          update(
+            socket,
+            :servers,
+            fn servers -> [server | servers] end
+          )
+
+        changeset = Servers.change_server(%Server{})
+
+        socket = assign(socket, changeset: changeset)
+
+        {:noreply, socket}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        socket = assign(socket, changeset: changeset)
+        {:noreply, socket}
+    end
   end
 
   defp link_body(server) do
-    assigns = %{name: server.name}
+    assigns = %{name: server.name, status: server.status}
 
     ~H"""
+      <span class={"status #{@status}"}></span>
       <img src="/images/server.svg">
       <%= @name %>
+    """
+  end
+
+  def generate_input_field(form, field, placeholder) do
+    assigns = %{}
+
+    ~H"""
+      <%= label form, placeholder %>
+      <%= text_input(form, field,
+        autocomplete: "off"
+      ) %>
+      <%= error_tag form, field %>
     """
   end
 end
