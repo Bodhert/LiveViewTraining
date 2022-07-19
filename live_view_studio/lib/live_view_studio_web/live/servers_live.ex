@@ -81,13 +81,25 @@ defmodule LiveViewStudioWeb.ServersLive do
     """
   end
 
-  def generate_input_field(form, field, placeholder) do
+  def handle_event("validate", %{"server" => params}, socket) do
+    changeset =
+      %Server{}
+      |> Servers.change_server(params)
+      |> Map.put(:action, :insert)
+
+    socket = assign(socket, changeset: changeset)
+
+    {:noreply, socket}
+  end
+
+  defp generate_input_field(form, field, placeholder) do
     assigns = %{}
 
     ~H"""
       <%= label form, placeholder %>
       <%= text_input(form, field,
-        autocomplete: "off"
+        autocomplete: "off",
+        phx_debounce: "blur"
       ) %>
       <%= error_tag form, field %>
     """

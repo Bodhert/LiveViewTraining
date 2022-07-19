@@ -19,7 +19,7 @@
   <div class="main">
   <div class="wrapper">
   <%= if @live_action == :new do %>
-    <.form let={f} for={@changeset} url="#" phx-submit="save">
+    <.form let={f} for={@changeset} url="#" phx-submit="save" phx-change="validate">
     <%= generate_input_field(f, :name, "Name") %>
     <%= generate_input_field(f, :framework, "Framework") %>
     <%= generate_input_field(f, :size, "Size (MB)") %>
