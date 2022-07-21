@@ -2,7 +2,6 @@ defmodule LiveViewStudioWeb.ServersLive do
   use LiveViewStudioWeb, :live_view
   alias LiveViewStudio.Servers
   alias LiveViewStudio.Servers.Server
-  alias LiveViewStudio.Helpers
 
   def mount(_params, _session, socket) do
     servers = Servers.list_servers()
@@ -71,16 +70,6 @@ defmodule LiveViewStudioWeb.ServersLive do
     end
   end
 
-  defp link_body(server) do
-    assigns = %{name: server.name, status: server.status}
-
-    ~H"""
-      <span class={"status #{@status}"}></span>
-      <img src="/images/server.svg">
-      <%= @name %>
-    """
-  end
-
   def handle_event("validate", %{"server" => params}, socket) do
     changeset =
       %Server{}
@@ -90,6 +79,29 @@ defmodule LiveViewStudioWeb.ServersLive do
     socket = assign(socket, changeset: changeset)
 
     {:noreply, socket}
+  end
+
+  def handle_event("toggle-status", %{"name" => name}, socket) do
+    server = Servers.get_server_by_name(name)
+
+    {:ok, server} = Servers.toggle_server_status(server)
+
+    socket = assign(socket, selected_server: server)
+
+    servers = Servers.list_servers()
+
+    socket = assign(socket, servers: servers)
+    {:noreply, socket}
+  end
+
+  defp link_body(server) do
+    assigns = %{name: server.name, status: server.status}
+
+    ~H"""
+      <span class={"status #{@status}"}></span>
+      <img src="/images/server.svg">
+      <%= @name %>
+    """
   end
 
   defp generate_input_field(form, field, placeholder) do

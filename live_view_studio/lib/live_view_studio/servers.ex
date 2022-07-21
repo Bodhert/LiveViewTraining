@@ -103,4 +103,15 @@ defmodule LiveViewStudio.Servers do
   end
 
   def get_server_by_name(name), do: Repo.get_by(Server, name: name)
+
+  def toggle_server_status(%Server{} = server) do
+    new_status =
+      if server.status == "up",
+        do: "down",
+        else:
+          "up"
+          |> IO.inspect(label: "#{__MODULE__}: >>>>>>  <<<<<<\n")
+
+    update_server(server, %{status: new_status})
+  end
 end
