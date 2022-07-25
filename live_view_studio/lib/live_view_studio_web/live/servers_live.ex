@@ -4,6 +4,7 @@ defmodule LiveViewStudioWeb.ServersLive do
   alias LiveViewStudio.Servers.Server
 
   def mount(_params, _session, socket) do
+    if connected?(socket), do: Servers.subscribe()
     servers = Servers.list_servers()
     changeset = Servers.change_server(%Server{})
 
@@ -47,20 +48,12 @@ defmodule LiveViewStudioWeb.ServersLive do
   end
 
   def handle_event("save", %{"server" => params}, socket) do
-    params |> IO.inspect(label: "#{__MODULE__}: >>>>>> params <<<<<<\n")
-
     case Servers.create_server(params) do
       {:ok, server} ->
         socket =
-          update(
-            socket,
-            :servers,
-            fn servers -> [server | servers] end
+          push_patch(socket,
+            to: Routes.live_path(socket, __MODULE__, name: server.name)
           )
-
-        changeset = Servers.change_server(%Server{})
-
-        socket = assign(socket, changeset: changeset)
 
         {:noreply, socket}
 
@@ -84,12 +77,32 @@ defmodule LiveViewStudioWeb.ServersLive do
   def handle_event("toggle-status", %{"name" => name}, socket) do
     server = Servers.get_server_by_name(name)
 
-    {:ok, server} = Servers.toggle_server_status(server)
+    case Servers.toggle_server_status(server) do
+      {:ok, _server} ->
+        {:noreply, socket}
+    end
+  end
 
-    socket = assign(socket, selected_server: server)
+  def handle_info({:server_created, server}, socket) do
+    socket =
+      update(
+        socket,
+        :servers,
+        fn servers -> [server | servers] end
+      )
+
+    {:noreply, socket}
+  end
+
+  def handle_info({:server_updated, server}, socket) do
+    socket =
+      if server.name == socket.assigns.selected_server.name do
+        assign(socket, selected_server: server)
+      else
+        socket
+      end
 
     servers = Servers.list_servers()
-
     socket = assign(socket, servers: servers)
     {:noreply, socket}
   end

@@ -7,6 +7,11 @@ defmodule LiveViewStudio.Servers do
   alias LiveViewStudio.Repo
 
   alias LiveViewStudio.Servers.Server
+  @topic inspect(__MODULE__)
+
+  def subscribe do
+    Phoenix.PubSub.subscribe(LiveViewStudio.PubSub, @topic)
+  end
 
   @doc """
   Returns the list of servers.
@@ -53,6 +58,7 @@ defmodule LiveViewStudio.Servers do
     %Server{}
     |> Server.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:server_created)
   end
 
   @doc """
@@ -71,6 +77,7 @@ defmodule LiveViewStudio.Servers do
     server
     |> Server.changeset(attrs)
     |> Repo.update()
+    |> broadcast(:server_updated)
   end
 
   @doc """
@@ -108,10 +115,15 @@ defmodule LiveViewStudio.Servers do
     new_status =
       if server.status == "up",
         do: "down",
-        else:
-          "up"
-          |> IO.inspect(label: "#{__MODULE__}: >>>>>>  <<<<<<\n")
+        else: "up"
 
     update_server(server, %{status: new_status})
   end
+
+  def broadcast({:ok, server}, event) do
+    Phoenix.PubSub.broadcast(LiveViewStudio.PubSub, @topic, {event, server})
+    {:ok, server}
+  end
+
+  def broadcast({:error, _reason} = error, _event), do: error
 end
