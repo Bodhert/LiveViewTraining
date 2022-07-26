@@ -2,6 +2,8 @@ alias LiveViewStudio.Repo
 alias LiveViewStudio.Boats.Boat
 alias LiveViewStudio.Servers.Server
 alias LiveViewStudio.Donations.Donation
+alias LiveViewStudio.Vehicles.Vehicle
+alias LiveViewStudio.PizzaOrders.PizzaOrder
 
 %Boat{
   model: "1760 Retriever Jon Deluxe",
@@ -262,13 +264,41 @@ for _i <- 1..100 do
   |> Repo.insert!()
 end
 
-alias LiveViewStudio.Vehicles.Vehicle
-
 for _i <- 1..1000 do
   %Vehicle{
     make: Faker.Vehicle.make(),
     model: Faker.Vehicle.model(),
     color: Faker.Color.name()
+  }
+  |> Repo.insert!()
+end
+
+pizza_toppings = [
+  "🍗 Chicken",
+  "🌿 Basil",
+  "🧄 Garlic",
+  "🥓 Bacon",
+  "🧀 Cheese",
+  "🐠 Salmon",
+  "🍤 Shrimp",
+  "🥦 Broccoli",
+  "🧅 Onions",
+  "🍅 Tomatoes",
+  "🍄 Mushrooms",
+  "🍍 Pineapples",
+  "🍆 Eggplants",
+  "🥑 Avocados",
+  "🌶 Peppers",
+  "🍕 Pepperonis"
+]
+
+for _i <- 1..1000 do
+  [topping1, topping2] = pizza_toppings |> Enum.shuffle() |> Enum.take(2)
+  pizza = "#{Faker.Pizza.size()} #{Faker.Pizza.style()} with #{topping1} and #{topping2}"
+
+  %PizzaOrder{
+    username: Faker.Internet.user_name(),
+    pizza: pizza
   }
   |> Repo.insert!()
 end
