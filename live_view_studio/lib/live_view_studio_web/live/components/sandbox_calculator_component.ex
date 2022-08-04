@@ -1,6 +1,5 @@
 defmodule LiveViewStudioWeb.SandboxCalculatorComponent do
   use LiveViewStudioWeb, :live_component
-  import Number.Currency
   alias LiveViewStudio.SandboxCalculator
 
   def mount(socket) do

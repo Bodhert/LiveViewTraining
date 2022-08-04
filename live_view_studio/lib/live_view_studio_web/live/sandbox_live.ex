@@ -3,9 +3,10 @@ defmodule LiveViewStudioWeb.SandboxLive do
 
   alias LiveViewStudioWeb.QuoteComponent
   alias LiveViewStudioWeb.SandboxCalculatorComponent
+  alias LiveViewStudioWeb.DeliveryChargeComponent
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, weight: nil, price: nil)}
+    {:ok, assign(socket, weight: nil, price: nil, charge: nil)}
   end
 
   def render(assigns) do
@@ -14,12 +15,14 @@ defmodule LiveViewStudioWeb.SandboxLive do
       <div id="sandbox">
         <%= live_component @socket, SandboxCalculatorComponent,
                             id: 1 %>
+        <%= live_component @socket, DeliveryChargeComponent, id: 2 %>
         <%= if @weight do %>
-          <%= live_component @socket, QuoteComponent,
-              material: "sand",
-              weight: @weight,
-              price: @price
-              %>
+          <QuoteComponent.quote
+              material="sand"
+              weight={@weight}
+              price={@price}
+              hrs_until_expires="4"
+              charge={@charge}/>
         <% end %>
       </div>
     """
@@ -27,6 +30,11 @@ defmodule LiveViewStudioWeb.SandboxLive do
 
   def handle_info({:totals, weight, price}, socket) do
     socket = assign(socket, weight: weight, price: price)
+    {:noreply, socket}
+  end
+
+  def handle_info({:delivery_charge, charge}, socket) do
+    socket = assign(socket, charge: charge)
     {:noreply, socket}
   end
 end
