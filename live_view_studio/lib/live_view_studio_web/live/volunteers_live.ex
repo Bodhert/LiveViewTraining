@@ -3,6 +3,8 @@ defmodule LiveViewStudioWeb.VolunteersLive do
 
   alias LiveViewStudio.Volunteers
   alias LiveViewStudio.Volunteers.Volunteer
+  alias LiveViewStudioWeb.HeaderComponent
+  alias LiveViewStudioWeb.VolunteerComponent
 
   def mount(_params, _session, socket) do
     if connected?(socket), do: Volunteers.subscribe()
@@ -10,15 +12,14 @@ defmodule LiveViewStudioWeb.VolunteersLive do
     volunteers = Volunteers.list_volunteers()
     changeset = Volunteers.change_volunteer(%Volunteer{})
 
-    socket = assign(socket, volunteers: volunteers, changeset: changeset)
+    socket = assign(socket, volunteers: volunteers, changeset: changeset, recent_activity: nil)
     {:ok, socket, temporary_assigns: [volunteers: []]}
   end
 
   def handle_event("save", %{"volunteer" => params}, socket) do
     case Volunteers.create_volunteer(params) do
-      {:ok, volunteer} ->
+      {:ok, _volunteer} ->
         changeset = Volunteers.change_volunteer(%Volunteer{})
-
         socket = assign(socket, changeset: changeset)
 
         {:noreply, socket}
@@ -39,14 +40,6 @@ defmodule LiveViewStudioWeb.VolunteersLive do
     {:noreply, socket}
   end
 
-  def handle_event("toggle-status", %{"id" => id}, socket) do
-    volunteer = Volunteers.get_volunteer!(id)
-
-    {:ok, _volunteer} = Volunteers.toggle_status_volunteer(volunteer)
-
-    {:noreply, socket}
-  end
-
   def handle_info({:volunteer_created, volunteer}, socket) do
     socket =
       update(
@@ -64,6 +57,12 @@ defmodule LiveViewStudioWeb.VolunteersLive do
         socket,
         :volunteers,
         fn volunteers -> [volunteer | volunteers] end
+      )
+
+    socket =
+      assign(socket,
+        recent_activity:
+          "#{volunteer.name} checked #{if volunteer.checked_out, do: "out", else: "in"}"
       )
 
     {:noreply, socket}
