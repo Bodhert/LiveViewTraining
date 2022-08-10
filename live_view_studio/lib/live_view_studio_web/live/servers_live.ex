@@ -2,13 +2,14 @@ defmodule LiveViewStudioWeb.ServersLive do
   use LiveViewStudioWeb, :live_view
   alias LiveViewStudio.Servers
   alias LiveViewStudio.Servers.Server
+  alias LiveViewStudioWeb.ServerComponent
+  alias LiveViewStudioWeb.ServerFormComponent
 
   def mount(_params, _session, socket) do
     if connected?(socket), do: Servers.subscribe()
     servers = Servers.list_servers()
-    changeset = Servers.change_server(%Server{})
 
-    socket = assign(socket, servers: servers, changeset: changeset, selected_server: hd(servers))
+    socket = assign(socket, servers: servers, selected_server: hd(servers))
     {:ok, socket}
   end
 
@@ -47,42 +48,6 @@ defmodule LiveViewStudioWeb.ServersLive do
     {:noreply, socket}
   end
 
-  def handle_event("save", %{"server" => params}, socket) do
-    case Servers.create_server(params) do
-      {:ok, server} ->
-        socket =
-          push_patch(socket,
-            to: Routes.live_path(socket, __MODULE__, name: server.name)
-          )
-
-        {:noreply, socket}
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        socket = assign(socket, changeset: changeset)
-        {:noreply, socket}
-    end
-  end
-
-  def handle_event("validate", %{"server" => params}, socket) do
-    changeset =
-      %Server{}
-      |> Servers.change_server(params)
-      |> Map.put(:action, :insert)
-
-    socket = assign(socket, changeset: changeset)
-
-    {:noreply, socket}
-  end
-
-  def handle_event("toggle-status", %{"name" => name}, socket) do
-    server = Servers.get_server_by_name(name)
-
-    case Servers.toggle_server_status(server) do
-      {:ok, _server} ->
-        {:noreply, socket}
-    end
-  end
-
   def handle_info({:server_created, server}, socket) do
     socket =
       update(
@@ -114,19 +79,6 @@ defmodule LiveViewStudioWeb.ServersLive do
       <span class={"status #{@status}"}></span>
       <img src="/images/server.svg">
       <%= @name %>
-    """
-  end
-
-  defp generate_input_field(form, field, placeholder) do
-    assigns = %{}
-
-    ~H"""
-      <%= label form, placeholder %>
-      <%= text_input(form, field,
-        autocomplete: "off",
-        phx_debounce: "blur"
-      ) %>
-      <%= error_tag form, field %>
     """
   end
 end
