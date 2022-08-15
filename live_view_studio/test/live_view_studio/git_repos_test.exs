@@ -6,9 +6,36 @@ defmodule LiveViewStudio.GitReposTest do
   describe "git_repos" do
     alias LiveViewStudio.GitRepos.GitRepo
 
-    @valid_attrs %{fork: true, language: "some language", license: "some license", name: "some name", owner_login: "some owner_login", owner_url: "some owner_url", stars: 42, url: "some url"}
-    @update_attrs %{fork: false, language: "some updated language", license: "some updated license", name: "some updated name", owner_login: "some updated owner_login", owner_url: "some updated owner_url", stars: 43, url: "some updated url"}
-    @invalid_attrs %{fork: nil, language: nil, license: nil, name: nil, owner_login: nil, owner_url: nil, stars: nil, url: nil}
+    @valid_attrs %{
+      fork: true,
+      language: "some language",
+      license: "some license",
+      name: "some name",
+      owner_login: "some owner_login",
+      owner_url: "some owner_url",
+      stars: 42,
+      url: "some url"
+    }
+    @update_attrs %{
+      fork: false,
+      language: "some updated language",
+      license: "some updated license",
+      name: "some updated name",
+      owner_login: "some updated owner_login",
+      owner_url: "some updated owner_url",
+      stars: 43,
+      url: "some updated url"
+    }
+    @invalid_attrs %{
+      fork: nil,
+      language: nil,
+      license: nil,
+      name: nil,
+      owner_login: nil,
+      owner_url: nil,
+      stars: nil,
+      url: nil
+    }
 
     def git_repo_fixture(attrs \\ %{}) do
       {:ok, git_repo} =

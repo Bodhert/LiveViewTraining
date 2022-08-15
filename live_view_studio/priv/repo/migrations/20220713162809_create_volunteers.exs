@@ -9,6 +9,5 @@ defmodule LiveViewStudio.Repo.Migrations.CreateVolunteers do
 
       timestamps()
     end
-
   end
 end

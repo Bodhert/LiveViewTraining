@@ -7,7 +7,11 @@ defmodule LiveViewStudio.VehiclesTest do
     alias LiveViewStudio.Vehicles.Vehicle
 
     @valid_attrs %{color: "some color", make: "some make", model: "some model"}
-    @update_attrs %{color: "some updated color", make: "some updated make", model: "some updated model"}
+    @update_attrs %{
+      color: "some updated color",
+      make: "some updated make",
+      model: "some updated model"
+    }
     @invalid_attrs %{color: nil, make: nil, model: nil}
 
     def vehicle_fixture(attrs \\ %{}) do

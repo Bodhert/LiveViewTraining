@@ -9,6 +9,5 @@ defmodule LiveViewStudio.Repo.Migrations.CreateVehicles do
 
       timestamps()
     end
-
   end
 end

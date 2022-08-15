@@ -14,6 +14,5 @@ defmodule LiveViewStudio.Repo.Migrations.CreateGitRepos do
 
       timestamps()
     end
-
   end
 end

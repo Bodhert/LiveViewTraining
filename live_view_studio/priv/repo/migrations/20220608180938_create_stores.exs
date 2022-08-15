@@ -13,6 +13,5 @@ defmodule LiveViewStudio.Repo.Migrations.CreateStores do
 
       timestamps()
     end
-
   end
 end

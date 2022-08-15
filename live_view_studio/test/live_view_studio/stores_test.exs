@@ -6,9 +6,33 @@ defmodule LiveViewStudio.StoresTest do
   describe "stores" do
     alias LiveViewStudio.Stores.Store
 
-    @valid_attrs %{city: "some city", hours: "some hours", name: "some name", open: true, phone_number: "some phone_number", street: "some street", zip: "some zip"}
-    @update_attrs %{city: "some updated city", hours: "some updated hours", name: "some updated name", open: false, phone_number: "some updated phone_number", street: "some updated street", zip: "some updated zip"}
-    @invalid_attrs %{city: nil, hours: nil, name: nil, open: nil, phone_number: nil, street: nil, zip: nil}
+    @valid_attrs %{
+      city: "some city",
+      hours: "some hours",
+      name: "some name",
+      open: true,
+      phone_number: "some phone_number",
+      street: "some street",
+      zip: "some zip"
+    }
+    @update_attrs %{
+      city: "some updated city",
+      hours: "some updated hours",
+      name: "some updated name",
+      open: false,
+      phone_number: "some updated phone_number",
+      street: "some updated street",
+      zip: "some updated zip"
+    }
+    @invalid_attrs %{
+      city: nil,
+      hours: nil,
+      name: nil,
+      open: nil,
+      phone_number: nil,
+      street: nil,
+      zip: nil
+    }
 
     def store_fixture(attrs \\ %{}) do
       {:ok, store} =
