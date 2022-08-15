@@ -6,9 +6,27 @@ defmodule LiveViewStudio.FlightsTest do
   describe "flight" do
     alias LiveViewStudio.Flights.Flight
 
-    @valid_attrs %{arrival_time: ~D[2010-04-17], departure_time: ~D[2010-04-17], destination: "some destination", number: "some number", origin: "some origin"}
-    @update_attrs %{arrival_time: ~D[2011-05-18], departure_time: ~D[2011-05-18], destination: "some updated destination", number: "some updated number", origin: "some updated origin"}
-    @invalid_attrs %{arrival_time: nil, departure_time: nil, destination: nil, number: nil, origin: nil}
+    @valid_attrs %{
+      arrival_time: ~N[2022-08-16 23:00:07],
+      departure_time: ~N[2022-08-17 23:00:07],
+      destination: "some destination",
+      number: "some number",
+      origin: "some origin"
+    }
+    @update_attrs %{
+      arrival_time: ~N[2022-08-17 23:00:07],
+      departure_time: ~N[2022-08-16 23:00:07],
+      destination: "some updated destination",
+      number: "some updated number",
+      origin: "some updated origin"
+    }
+    @invalid_attrs %{
+      arrival_time: nil,
+      departure_time: nil,
+      destination: nil,
+      number: nil,
+      origin: nil
+    }
 
     def flight_fixture(attrs \\ %{}) do
       {:ok, flight} =
@@ -31,8 +49,8 @@ defmodule LiveViewStudio.FlightsTest do
 
     test "create_flight/1 with valid data creates a flight" do
       assert {:ok, %Flight{} = flight} = Flights.create_flight(@valid_attrs)
-      assert flight.arrival_time == ~D[2010-04-17]
-      assert flight.departure_time == ~D[2010-04-17]
+      assert flight.arrival_time == ~N[2022-08-16 23:00:07.000000]
+      assert flight.departure_time == ~N[2022-08-17 23:00:07.000000]
       assert flight.destination == "some destination"
       assert flight.number == "some number"
       assert flight.origin == "some origin"
@@ -45,8 +63,8 @@ defmodule LiveViewStudio.FlightsTest do
     test "update_flight/2 with valid data updates the flight" do
       flight = flight_fixture()
       assert {:ok, %Flight{} = flight} = Flights.update_flight(flight, @update_attrs)
-      assert flight.arrival_time == ~D[2011-05-18]
-      assert flight.departure_time == ~D[2011-05-18]
+      assert flight.arrival_time == ~N[2022-08-17 23:00:07.000000]
+      assert flight.departure_time == ~N[2022-08-16 23:00:07.000000]
       assert flight.destination == "some updated destination"
       assert flight.number == "some updated number"
       assert flight.origin == "some updated origin"

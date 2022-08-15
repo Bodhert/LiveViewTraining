@@ -6,8 +6,8 @@ defmodule LiveViewStudio.VolunteersTest do
   describe "volunteers" do
     alias LiveViewStudio.Volunteers.Volunteer
 
-    @valid_attrs %{checked_out: true, name: "some name", phone: "some phone"}
-    @update_attrs %{checked_out: false, name: "some updated name", phone: "some updated phone"}
+    @valid_attrs %{checked_out: true, name: "some name", phone: "0123456789"}
+    @update_attrs %{checked_out: false, name: "some updated name", phone: "9876543210"}
     @invalid_attrs %{checked_out: nil, name: nil, phone: nil}
 
     def volunteer_fixture(attrs \\ %{}) do
@@ -33,7 +33,7 @@ defmodule LiveViewStudio.VolunteersTest do
       assert {:ok, %Volunteer{} = volunteer} = Volunteers.create_volunteer(@valid_attrs)
       assert volunteer.checked_out == true
       assert volunteer.name == "some name"
-      assert volunteer.phone == "some phone"
+      assert volunteer.phone == "0123456789"
     end
 
     test "create_volunteer/1 with invalid data returns error changeset" do
@@ -42,10 +42,13 @@ defmodule LiveViewStudio.VolunteersTest do
 
     test "update_volunteer/2 with valid data updates the volunteer" do
       volunteer = volunteer_fixture()
-      assert {:ok, %Volunteer{} = volunteer} = Volunteers.update_volunteer(volunteer, @update_attrs)
+
+      assert {:ok, %Volunteer{} = volunteer} =
+               Volunteers.update_volunteer(volunteer, @update_attrs)
+
       assert volunteer.checked_out == false
       assert volunteer.name == "some updated name"
-      assert volunteer.phone == "some updated phone"
+      assert volunteer.phone == "9876543210"
     end
 
     test "update_volunteer/2 with invalid data returns error changeset" do
