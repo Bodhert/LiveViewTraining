@@ -17,23 +17,27 @@ defmodule LiveViewStudioWeb.LightLive do
       </div>
       <button phx-click="off">
         <img src="images/light-off.svg">
+        <span class="sr-only">Off</span>
       </button>
 
       <button phx-click="down">
         <img src="images/down.svg">
+        <span class="sr-only">Down</span>
       </button>
 
       <button phx-click="up">
         <img src="images/up.svg">
+        <span class="sr-only">Up</span>
       </button>
 
 
       <button phx-click="on">
-      <img src="images/light-on.svg">
+        <img src="images/light-on.svg">
+        <span class="sr-only">On</span>
       </button>
 
       <button phx-click="random">
-        Light Me Up!
+        Light Me Random!
       </button>
 
       <form phx-change="update">
