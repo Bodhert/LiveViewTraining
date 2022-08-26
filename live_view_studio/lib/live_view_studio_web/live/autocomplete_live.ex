@@ -21,23 +21,22 @@ defmodule LiveViewStudioWeb.AutocompleteLive do
     ~H"""
     <h1>Find a Store</h1>
     <div id="search">
+      <form phx-submit="zip-search">
+        <input type="text" name="zip" value={@zip} placeholder="Zip Code"
+          autofocus autocomplete="off" readonly={@loading}/>
 
-    <form phx-submit="zip-search">
-    <input type="text" name="zip" value={@zip} placeholder="Zip Code"
-      autofocus autocomplete="off" readonly={@loading}/>
+          <button type="submit">
+            <img src="images/search.svg" >
+          </button>
+      </form>
 
-      <button type="submit">
-        <img src="images/search.svg" >
-      </button>
-    </form>
-
-    <form phx-submit="city-search" phx-change="suggest-city">
-    <input type="text" name="city" value={@city} placeholder="City name"
-       autocomplete="off" readonly={@loading} list="matches" phx-debounce="1000"/>
-      <button type="submit">
-        <img src="images/search.svg" >
-      </button>
-    </form>
+      <form id="city-search" phx-submit="city-search" phx-change="suggest-city">
+        <input type="text" name="city" value={@city} placeholder="City name"
+          autocomplete="off" readonly={@loading} list="matches"/>
+          <button type="submit">
+            <img src="images/search.svg" >
+          </button>
+      </form>
 
     <datalist id="matches">
       <%= for match <- @matches do %>
@@ -91,13 +90,12 @@ defmodule LiveViewStudioWeb.AutocompleteLive do
     {:noreply, socket}
   end
 
-  def handle_event("city-search", %{"city" => city_code}, socket) do
-    city_code |> IO.inspect(label: "#{__MODULE__}: >>>>>> city <<<<<<\n")
-    send(self(), {:run_city_search, city_code})
+  def handle_event("city-search", %{"city" => city}, socket) do
+    send(self(), {:run_city_search, city})
 
     socket =
       assign(socket,
-        city: city_code,
+        city: city,
         loading: true,
         stores: []
       )
@@ -118,12 +116,12 @@ defmodule LiveViewStudioWeb.AutocompleteLive do
     {:noreply, socket}
   end
 
-  def handle_info({:run_city_search, city_code}, socket) do
-    case Stores.search_by_city(city_code) do
+  def handle_info({:run_city_search, city}, socket) do
+    case Stores.search_by_city(city) do
       [] ->
         socket =
           socket
-          |> put_flash(:info, "No stores matching \"#{city_code}\"")
+          |> put_flash(:info, "No stores matching \"#{city}\"")
           |> assign(stores: [], loading: false)
 
         {:noreply, socket}

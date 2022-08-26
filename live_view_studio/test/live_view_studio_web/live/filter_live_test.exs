@@ -16,8 +16,6 @@ defmodule LiveViewStudioWeb.FilterLiveTest do
     |> form("#change-filter", %{type: "fishing", prices: ["$"]})
     |> render_change()
 
-    open_browser(view)
-
     assert has_element?(view, boat_card(fishing_1))
     refute has_element?(view, boat_card(fishing_2))
     refute has_element?(view, boat_card(sporting_2))

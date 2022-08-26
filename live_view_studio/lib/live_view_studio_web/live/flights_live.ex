@@ -13,24 +13,24 @@ defmodule LiveViewStudioWeb.FlightsLive do
         loading: false
       )
 
-    {:ok, socket, FlightsLive, temporary_assigns: [flights: [], matches: []]}
+    {:ok, socket, temporary_assigns: [flights: [], matches: []]}
   end
 
   def render(assigns) do
     ~H"""
     <h1>Find a Flight</h1>
     <div id="search">
-    <form phx-submit="flight-search">
-    <input type="text" name="flight-info" value={@flight} placeholder="flight info"
+    <form id="flight-search" phx-submit="flight-search">
+    <input  type="text" name="flight_info" value={@flight} placeholder="flight info"
       autofocus autocomplete="off" readonly={@loading} />
       <button type="submit">
         <img src="images/search.svg" >
       </button>
     </form>
 
-    <form phx-submit="airport-search" phx-change="suggest-airport">
+    <form id="airport-search" phx-submit="airport-search" phx-change="suggest-airport">
     <input type="text" name="airport" value={@airport} placeholder="airport info"
-     autofocus autocomplete="off" readonly={@loading} list="matches" phx-debounce="1000"/>
+     autofocus autocomplete="off" readonly={@loading} list="matches"/>
       <button type="submit">
           <img src="images/search.svg" >
       </button>
@@ -85,7 +85,7 @@ defmodule LiveViewStudioWeb.FlightsLive do
     {:noreply, socket}
   end
 
-  def handle_event("flight-search", %{"flight-info" => flight_info}, socket) do
+  def handle_event("flight-search", %{"flight_info" => flight_info}, socket) do
     send(self(), {:search, flight_info})
 
     socket =
