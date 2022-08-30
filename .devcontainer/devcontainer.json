@@ -11,7 +11,12 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"jakebecker.elixir-ls"
+		"jakebecker.elixir-ls",
+		"sleistner.vscode-fileutils",
+		"eamodio.gitlens",
+		"bradlc.vscode-tailwindcss",
+		"Tyriar.vscode-terminal-here",
+		"extr0py.vscode-relative-line-numbers"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

@@ -26,7 +26,7 @@ defmodule LiveViewStudioWeb.GitReposLive do
     <ul>
       <%= for repo <- @repos do %>
         <li>
-          <div class="first-line">
+          <div id={"repo-#{repo.id}"} class="first-line">
             <div class="group">
               <img src="images/terminal.svg">
               <a href={repo.owner_url}>
@@ -94,8 +94,8 @@ defmodule LiveViewStudioWeb.GitReposLive do
   defp license_options do
     [
       "All Licenses": "",
-      MIT: "MIT",
-      Apache: "Apache",
+      MIT: "mit",
+      Apache: "apache",
       BSDL: "bsdl"
     ]
   end
