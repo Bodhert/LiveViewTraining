@@ -11,7 +11,7 @@ defmodule LiveViewStudioWeb.GitReposLive do
     ~H"""
     <h1>Trending Git Repos</h1>
     <div id="repos">
-    <form phx-change="filter">
+    <form id="change-filter" phx-change="filter">
         <div class="filters">
           <select name="language">
             <%= options_for_select(type_languaje_options(), @language)  %>

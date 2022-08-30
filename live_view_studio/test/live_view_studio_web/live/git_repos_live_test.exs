@@ -1,4 +1,4 @@
-defmodule LiveViewStudioWeb.FilterLiveTest do
+defmodule LiveViewStudioWeb.GitReposLiveTest do
   use LiveViewStudioWeb.ConnCase, async: true
 
   import Phoenix.LiveViewTest
@@ -16,18 +16,28 @@ defmodule LiveViewStudioWeb.FilterLiveTest do
         license: "mit"
       )
 
+    repo_2 =
+      create_repo(
+        name: "elixir",
+        url: "https://github.com/elixir/elixir",
+        owner_login: "elixir",
+        owner_url: "https://github.com/elixir",
+        fork: false,
+        stars: 45600,
+        language: "elixir",
+        license: "apache"
+      )
+
     {:ok, view, _html} = live(conn, "/git-repos")
     assert has_element?(view, repo_card(repo_1))
-    # assert has_element?(view, boat_card(fishing_2))
-    # assert has_element?(view, boat_card(sporting_2))
+    assert has_element?(view, repo_card(repo_2))
 
-    # view
-    # |> form("#change-filter", %{type: "fishing", prices: ["$"]})
-    # |> render_change()
+    view
+    |> form("#change-filter", %{language: "elixir", license: "apache"})
+    |> render_change()
 
-    # assert has_element?(view, boat_card(fishing_1))
-    # refute has_element?(view, boat_card(fishing_2))
-    # refute has_element?(view, boat_card(sporting_2))
+    assert has_element?(view, repo_card(repo_2))
+    refute has_element?(view, repo_card(repo_1))
   end
 
   defp create_repo(attrs) do

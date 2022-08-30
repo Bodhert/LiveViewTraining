@@ -229,8 +229,6 @@ alias LiveViewStudio.Flights.Flight
 }
 |> Repo.insert!()
 
-alias LiveViewStudio.Flights.Flight
-
 %Flight{
   number: "450",
   origin: "DEN",

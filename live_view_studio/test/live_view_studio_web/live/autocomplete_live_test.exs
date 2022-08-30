@@ -3,6 +3,14 @@ defmodule LiveViewStudioWeb.AutocompleteLiveTest do
 
   import Phoenix.LiveViewTest
 
+  setup do
+    create_store(name: "Downtown Denver", zip: "80204", city: "Denver, CO")
+    create_store(name: "Midtown Denver", zip: "80204", city: "Denver, CO")
+    create_store(name: "Denver Stapleton", zip: "80204", city: "Denver, CO")
+    create_store(name: "Denver West", zip: "80204", city: "Denver, CO")
+    {:ok, %{}}
+  end
+
   test "search shows matching stores", %{conn: conn} do
     {:ok, view, _html} = live(conn, "/autocomplete")
 
@@ -34,5 +42,20 @@ defmodule LiveViewStudioWeb.AutocompleteLiveTest do
     |> render_submit()
 
     assert render(view) =~ "No stores matching"
+  end
+
+  def create_store(attrs) do
+    {:ok, store} =
+      attrs
+      |> Enum.into(%{
+        street: "street",
+        phone_number: "phone",
+        city: "city",
+        open: true,
+        hours: "hours"
+      })
+      |> LiveViewStudio.Stores.create_store()
+
+    store
   end
 end
