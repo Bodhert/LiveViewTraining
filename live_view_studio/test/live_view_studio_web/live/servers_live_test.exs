@@ -3,6 +3,11 @@ defmodule LiveViewStudioWeb.ServersLiveTest do
 
   import Phoenix.LiveViewTest
 
+  setup do
+    server = create_server("any")
+    {:ok, %{server: server}}
+  end
+
   test "clicking a server link show its details", %{conn: conn} do
     second = create_server("Second")
     first = create_server("First")
@@ -29,6 +34,50 @@ defmodule LiveViewStudioWeb.ServersLiveTest do
     {:ok, view, _html} = live(conn, "/servers?name=#{second.name}")
 
     assert has_element?(view, "#selected-server", second.name)
+  end
+
+  test "adds valid server to the list", %{conn: conn} do
+    {:ok, view, _html} = live(conn, "/servers/new")
+
+    valid_attrs = %{name: "Server 1", framework: "rails", size: 33, git_repo: "yiju"}
+
+    view
+    |> form("#create-server", %{server: valid_attrs})
+    |> render_submit()
+
+    assert has_element?(view, "#servers", valid_attrs.name)
+  end
+
+  test "displays live validations", %{conn: conn} do
+    {:ok, view, _html} = live(conn, "/servers/new")
+
+    invalid_valid_attrs = %{name: ""}
+
+    view
+    |> form("#create-server", %{server: invalid_valid_attrs})
+    |> render_change()
+
+    assert has_element?(view, "#create-server", "can't be blank")
+  end
+
+  test "clicking status button toggles status", %{conn: conn, server: server} do
+    {:ok, view, _html} = live(conn, "/servers")
+
+    status_button = "#toggle-#{server.name}"
+
+    view
+    |> element(status_button, "up")
+    |> render_click()
+
+    assert has_element?(view, status_button, "down")
+  end
+
+  test "receives real time updates", %{conn: conn} do
+    {:ok, view, _html} = live(conn, "/servers")
+
+    external_server = create_server("dos")
+
+    assert has_element?(view, "#servers", external_server.name)
   end
 
   defp create_server(name) do

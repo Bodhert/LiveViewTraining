@@ -5,7 +5,7 @@ defmodule LiveViewStudioWeb.VolunteerComponent do
 
   def render(assigns) do
     ~H"""
-    <div class={"volunteer #{if @volunteer.checked_out, do: "out"}"} id={@volunteer.id}>
+    <div class={"volunteer #{if @volunteer.checked_out, do: "out"}"} id={"volunteer-#{@volunteer.id}"}>
         <div class="name">
           <%= @volunteer.name %>
         </div>
@@ -16,7 +16,7 @@ defmodule LiveViewStudioWeb.VolunteerComponent do
         <div class="status">
             <button phx-click="toggle-status" phx-value-id={@volunteer.id}  phx-target={@myself}
                     phx_disable_with="Saving...">
-              <%= if @volunteer.checked_out, do: "Check In", else: "Checked out" %>
+              <%= if @volunteer.checked_out, do: "Check In", else: "Check Out" %>
             </button>
         </div>
       </div>

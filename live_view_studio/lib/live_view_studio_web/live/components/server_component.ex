@@ -9,7 +9,7 @@ defmodule LiveViewStudioWeb.ServerComponent do
         <h2><%= @selected_server.name %></h2>
         <button class={@selected_server.status} phx-click="toggle-status"
                 phx_disable_with="Saving..." phx-value-name={@selected_server.name}
-                phx-target={@myself}>
+                phx-target={@myself} id={"toggle-#{@selected_server.name}"}>
           <%= @selected_server.status %>
         </button>
       </div>

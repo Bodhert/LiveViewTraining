@@ -13,7 +13,7 @@ defmodule LiveViewStudioWeb.ServerFormComponent do
   def render(assigns) do
     ~H"""
     <div>
-      <.form let={f} for={@changeset} url="#" phx-submit="save" phx-change="validate"
+      <.form id="create-server" let={f} for={@changeset} url="#" phx-submit="save" phx-change="validate"
           phx-target={@myself}>
           <%= generate_input_field(f, :name, "Name") %>
           <%= generate_input_field(f, :framework, "Framework") %>

@@ -12,7 +12,7 @@ defmodule LiveViewStudioWeb.VolunteerFormComponent do
   def render(assigns) do
     ~H"""
     <div>
-      <.form let={f} for={@changeset} url="#" phx-submit="save" phx-change="validate" phx_target={@myself}>
+      <.form id="create-volunteer" let={f} for={@changeset} url="#" phx-submit="save" phx-change="validate" phx_target={@myself}>
         <div class="field">
             <%= text_input f, :name,
                               placeholder: "Name",
