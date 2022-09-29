@@ -4,7 +4,7 @@ defmodule LiveViewStudioWeb.LicenseLive do
   alias LiveViewStudio.Licenses
   import Number.Currency
 
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
     if connected?(socket) do
       :timer.send_interval(1000, self(), :tick)
     end
@@ -19,12 +19,12 @@ defmodule LiveViewStudioWeb.LicenseLive do
         time_remaining: time_remaining(expiration_time)
       )
 
-    {:ok, socket}
+    {:ok, assign_current_user(socket, session)}
   end
 
   def render(assigns) do
     ~H"""
-    <h1>Team License</h1>
+    <h1>Team License for  <%= @current_user.email %></h1>
     <div id="license">
     <div class="card">
     <div class="content">

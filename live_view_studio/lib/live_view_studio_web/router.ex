@@ -22,7 +22,6 @@ defmodule LiveViewStudioWeb.Router do
 
     live("/", PageLive, :index)
     live("/light", LightLive)
-    live("/license", LicenseLive)
     live("/sales-dashboard", SalesDashboardLive)
     live("/search", SearchLive)
     live("/flights", FlightsLive)
@@ -80,6 +79,7 @@ defmodule LiveViewStudioWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live "/topsecret", TopSecretLive
+    live("/license", LicenseLive)
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email

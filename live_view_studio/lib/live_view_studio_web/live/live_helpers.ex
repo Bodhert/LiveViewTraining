@@ -1,6 +1,5 @@
 defmodule LiveViewStudioWeb.LiveHelpers do
   import Phoenix.LiveView
-  import Phoenix.LiveView.Helpers
 
   alias LiveViewStudio.Accounts
 
