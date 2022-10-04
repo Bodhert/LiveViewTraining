@@ -26,7 +26,6 @@ defmodule LiveViewStudioWeb.TopSecretLive do
 
   def pad_id(user) do
     user.id
-    |> IO.inspect(label: "#{__MODULE__}: >>>>>> me totie <<<<<<\n")
     |> Integer.to_string()
     |> String.pad_leading(3, "0")
   end
