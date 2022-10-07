@@ -12,19 +12,27 @@ import "../css/app.css"
 //     import {Socket} from "phoenix"
 //     import socket from "./socket"
 //
-import "phoenix_html"
-import { Socket } from "phoenix"
-import NProgress from "nprogress"
-import { LiveSocket } from "phoenix_live_view"
+import "phoenix_html";
+import { Socket } from "phoenix";
+import NProgress from "nprogress";
+import { LiveSocket } from "phoenix_live_view";
 import InfiniteScroll from "./infinite-scroll";
-import DatePicker from "./date-picker"
-import FormatPhone from "./format-phone"
+import DatePicker from "./date-picker";
+import FormatPhone from "./format-phone";
+import LineChart from "./line-chart";
 
 let Hooks = {
-    InfiniteScroll: InfiniteScroll,
-    DatePicker: DatePicker,
-    FormatPhone: FormatPhone
+  InfiniteScroll: InfiniteScroll,
+  DatePicker: DatePicker,
+  FormatPhone: FormatPhone
 };
+
+Hooks.LineChart = {
+  mounted() {
+    const { labels, values } = JSON.parse(this.el.dataset.chartData);
+    this.chart = new LineChart(this.el, labels, values)
+  }
+}
 
 
 
