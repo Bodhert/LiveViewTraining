@@ -20,6 +20,7 @@ import InfiniteScroll from "./infinite-scroll";
 import DatePicker from "./date-picker";
 import FormatPhone from "./format-phone";
 import LineChart from "./line-chart";
+import IncidentMap from "./incident-map"
 
 let Hooks = {
   InfiniteScroll: InfiniteScroll,
@@ -36,6 +37,14 @@ Hooks.LineChart = {
     this.handleEvent("new-point", ({ label, value }) => {
       this.chart.addPoint(label, value)
     });
+  }
+}
+
+Hooks.IncidentMap = {
+  mounted() {
+    this.map = new IncidentMap(this.el, [6.18, -75.58], event => {
+
+    })
   }
 }
 
