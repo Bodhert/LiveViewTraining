@@ -45,6 +45,12 @@ Hooks.IncidentMap = {
     this.map = new IncidentMap(this.el, [6.18, -75.58], event => {
 
     })
+
+    const incidents = JSON.parse(this.el.dataset.incidents);
+
+    incidents.forEach(incident => {
+      this.map.addMarker(incident)
+    });
   }
 }
 
