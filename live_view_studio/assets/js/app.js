@@ -44,14 +44,16 @@ Hooks.IncidentMap = {
   mounted() {
     this.map = new IncidentMap(this.el, [6.18, -75.58], event => {
       const incidentId = event.target.options.incidentId;
-      this.pushEvent("marker-clicked", incidentId)
+      this.pushEvent("marker-clicked", incidentId, (reply, ref) => {
+        this.scrollTo(reply.incident.id)
+      })
     })
 
-    const incidents = JSON.parse(this.el.dataset.incidents);
-
-    incidents.forEach(incident => {
-      this.map.addMarker(incident)
-    });
+    this.pushEvent("get-incidents", {}, (reply, ref) => {
+      reply.incidents.forEach(incident => {
+        this.map.addMarker(incident)
+      })
+    })
 
     this.handleEvent("highlight-marker", incident => {
       this.map.highlightMarker(incident)
@@ -60,7 +62,14 @@ Hooks.IncidentMap = {
     this.handleEvent("add-marker", incident => {
       this.map.addMarker(incident);
       this.map.highlightMarker(incident);
+      this.scrollTo(incident.id)
     })
+  },
+  scrollTo(incidentId) {
+    const incidentElement =
+      document.querySelector(`[phx-value-id="${incidentId}"]`);
+
+    incidentElement.scrollIntoView(false);
   }
 }
 
