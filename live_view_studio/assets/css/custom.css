@@ -1366,3 +1366,21 @@ input[type="range"]:focus::-ms-fill-upper {
     }
   }
 }
+
+/* Key Events */
+
+#key-events {
+  @apply max-w-sm mx-auto;
+
+  img {
+    @apply border-2 border-cool-gray-300;
+  }
+
+  input[type="number"] {
+    @apply: w-1/4 rounded border border-cool-gray-300 px-3 py-2 text-gray-700 focus: outline-none;
+  }
+
+  .status {
+    @apply flex items-center mt-4 justify-between text-cool-gray-800 text-lg;
+  }
+}
