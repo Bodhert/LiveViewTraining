@@ -1,3 +1,10 @@
 {
-        "elixirLS.projectDir": "live_view_studio"
+        "elixirLS.projectDir": "live_view_studio",
+        "files.associations": {
+                "*.css": "tailwindcss"
+        },
+        "css.lint.unknownAtRules": "ignore",
+        "[css]": {
+                "editor.defaultFormatter": "bradlc.vscode-tailwindcss"
+        }
 }

@@ -75,7 +75,7 @@ header {
     @apply flex h-12 overflow-hidden text-base bg-cool-gray-300 rounded-lg mb-8;
   }
 
-  .meter>span {
+  .meter > span {
     @apply flex flex-col justify-center text-cool-gray-900 text-center whitespace-nowrap bg-yellow-300 font-bold;
     transition: width 2s ease;
   }
@@ -347,7 +347,7 @@ header {
           @apply opacity-0 fixed w-0;
         }
 
-        input[type="checkbox"]:checked+label {
+        input[type="checkbox"]:checked + label {
           @apply bg-indigo-300 border-indigo-500;
         }
 
@@ -431,6 +431,10 @@ header {
       @apply flex-1 max-w-2xl mr-auto px-6;
     }
 
+    h2 {
+      @apply text-center text-2xl font-bold mb-4;
+    }
+
     form {
       @apply p-8 border-solid border border-cool-gray-400 rounded-md mb-8;
 
@@ -492,7 +496,7 @@ header {
         @apply px-6 py-5 border-b border-gray-200 flex items-center flex-wrap justify-between;
 
         h2 {
-          @apply text-xl font-semibold text-indigo-800 mb-0;
+          @apply mb-0 text-xl font-semibold text-indigo-800;
         }
       }
 
@@ -1177,6 +1181,8 @@ input[type="range"]:focus::-ms-fill-upper {
   }
 }
 
+/* Sandbox and Quote Components */
+
 #sandbox {
   @apply max-w-xl mx-auto;
 
@@ -1222,6 +1228,8 @@ input[type="range"]:focus::-ms-fill-upper {
     }
   }
 }
+
+/* Auth */
 
 .auth {
   @apply px-6 mt-8 mx-auto w-full max-w-md;
@@ -1306,6 +1314,7 @@ input[type="range"]:focus::-ms-fill-upper {
 }
 
 /* Charting */
+
 #charting {
   button {
     @apply mt-6 bg-indigo-500 text-white font-medium py-2 px-4 rounded outline-none;
@@ -1377,10 +1386,306 @@ input[type="range"]:focus::-ms-fill-upper {
   }
 
   input[type="number"] {
-    @apply: w-1/4 rounded border border-cool-gray-300 px-3 py-2 text-gray-700 focus: outline-none;
+    @apply w-1/4 rounded border border-cool-gray-300 px-3 py-2 text-gray-700 focus:outline-none;
   }
 
   .status {
     @apply flex items-center mt-4 justify-between text-cool-gray-800 text-lg;
+  }
+}
+
+/* File Uploads */
+
+#desks {
+  @apply max-w-4xl mx-auto;
+
+  form {
+    @apply bg-white px-10 py-8 mb-6 shadow rounded-lg mx-auto w-full max-w-xl;
+
+    input[type="text"] {
+      @apply mb-4 appearance-none block w-full px-3 py-2 border border-cool-gray-300 rounded-md transition duration-150 ease-in-out;
+    }
+
+    input[type="text"]:focus {
+      @apply outline-none ring ring-indigo-300 border-indigo-300;
+    }
+
+    input[type="file"] {
+    }
+
+    button {
+      @apply mt-4 w-full py-2 px-4 border border-transparent font-medium rounded-md text-white bg-indigo-600 transition duration-150 ease-in-out;
+    }
+
+    button:focus {
+      @apply outline-none border-indigo-700 ring ring-indigo-300;
+    }
+
+    button:active {
+      @apply bg-indigo-700;
+    }
+
+    button:hover {
+      @apply bg-indigo-500;
+    }
+
+    .hint {
+      @apply my-4 text-gray-600 text-sm;
+    }
+
+    .drop {
+      @apply flex items-baseline justify-center space-x-1 my-2 p-4 border-2 border-dashed border-gray-300 rounded-md text-center text-gray-600;
+
+      label {
+        @apply cursor-pointer font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500;
+      }
+
+      p {
+        @apply text-sm text-gray-500;
+      }
+
+      img {
+        @apply mx-auto h-12 w-12;
+      }
+    }
+
+    .entry {
+      @apply my-6 flex items-center justify-start space-x-6;
+
+      img {
+        @apply w-32;
+      }
+
+      .progress {
+        @apply w-full;
+      }
+
+      .progress .value {
+        @apply text-left mb-2 text-xs font-semibold inline-block text-pink-600;
+      }
+
+      .progress .bar {
+        @apply flex h-2 overflow-hidden text-base bg-pink-200 rounded-lg mb-4;
+      }
+
+      .progress .bar > span {
+        @apply shadow-md bg-pink-500;
+        transition: width 1s ease;
+      }
+
+      a {
+        @apply text-3xl font-bold text-cool-gray-700 hover:text-red-700;
+      }
+    }
+
+    .error {
+      color: #a94442;
+      display: block;
+      margin: 0.5rem 0;
+    }
+  }
+
+  #photos {
+    @apply flex flex-wrap items-center justify-center sm:justify-start;
+
+    .photo {
+      @apply text-center p-4 m-4 border-2 border-cool-gray-300 rounded-xl;
+
+      img {
+        @apply h-64 sm:h-36 mx-auto object-fill;
+      }
+
+      .name {
+        @apply mt-2 text-base text-cool-gray-600 font-medium;
+      }
+    }
+  }
+}
+
+/* Modal */
+
+#underwater {
+  @apply max-w-xl mx-auto text-center;
+
+  a.button,
+  button {
+    @apply inline-block text-base bg-indigo-500 text-white font-medium py-2 px-4 rounded outline-none;
+  }
+
+  a.button:hover,
+  button:hover {
+    @apply bg-indigo-700;
+  }
+
+  a.button:focus,
+  button:focus {
+    @apply outline-none border-indigo-700 ring ring-indigo-300;
+  }
+
+  h2 {
+    @apply text-2xl font-bold;
+  }
+
+  .creatures {
+    @apply text-center my-6 text-4xl;
+  }
+}
+
+/*
+ * Range Input
+ *
+ * Generated by:
+ * http://danielstern.ca/range.css
+ *
+ */
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 13.8px 0;
+}
+input[type="range"]:focus {
+  outline: none;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  background: #7f9cf5;
+  border-radius: 0px;
+  border: 0px solid #7f9cf5;
+}
+input[type="range"]::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  border: 1px solid #4c51bf;
+  height: 36px;
+  width: 17px;
+  border-radius: 35px;
+  background: #4c51bf;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -13.8px;
+}
+input[type="range"]:focus::-webkit-slider-runnable-track {
+  background: #97aef7;
+}
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  background: #7f9cf5;
+  border-radius: 0px;
+  border: 0px solid #7f9cf5;
+}
+input[type="range"]::-moz-range-thumb {
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  border: 1px solid #4c51bf;
+  height: 36px;
+  width: 17px;
+  border-radius: 35px;
+  background: #4c51bf;
+  cursor: pointer;
+}
+input[type="range"]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type="range"]::-ms-fill-lower {
+  background: #678af3;
+  border: 0px solid #7f9cf5;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+}
+input[type="range"]::-ms-fill-upper {
+  background: #7f9cf5;
+  border: 0px solid #7f9cf5;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+}
+input[type="range"]::-ms-thumb {
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  border: 1px solid #4c51bf;
+  height: 36px;
+  width: 17px;
+  border-radius: 35px;
+  background: #4c51bf;
+  cursor: pointer;
+  height: 8.4px;
+}
+input[type="range"]:focus::-ms-fill-lower {
+  background: #7f9cf5;
+}
+input[type="range"]:focus::-ms-fill-upper {
+  background: #97aef7;
+}
+
+/*
+ * Loading Spinner
+ *
+ * Copied from:
+ * https://projects.lukehaas.me/css-loaders/
+ */
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #5a67d8;
+  font-size: 10px;
+  margin: 20px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3.5em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
   }
 }
