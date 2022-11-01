@@ -48,6 +48,10 @@ defmodule LiveViewStudioWeb.DesksLive do
     {:noreply, assign(socket, changeset: changeset)}
   end
 
+  def handle_event("cancel", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :photo, ref)}
+  end
+
   def handle_info({:desk_created, desk}, socket) do
     {:noreply, update(socket, :desks, fn desks -> [desk | desks] end)}
   end
