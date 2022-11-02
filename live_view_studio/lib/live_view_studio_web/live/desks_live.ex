@@ -29,7 +29,16 @@ defmodule LiveViewStudioWeb.DesksLive do
   end
 
   def handle_event("save", %{"desk" => params}, socket) do
-    case Desks.create_desk(%Desk{}, params) do
+    urls =
+      consume_uploaded_entries(socket, :photo, fn meta, entry ->
+        dest = Path.join("priv/static/uploads", filename(entry))
+        File.cp!(meta.path, dest)
+        Routes.static_path(socket, "/uploads/#{filename(entry)}")
+      end)
+
+    desk = %Desk{photo_urls: urls}
+
+    case Desks.create_desk(desk, params) do
       {:ok, _desk} ->
         changeset = Desks.change_desk(%Desk{})
         {:noreply, assign(socket, changeset: changeset)}
@@ -54,5 +63,10 @@ defmodule LiveViewStudioWeb.DesksLive do
 
   def handle_info({:desk_created, desk}, socket) do
     {:noreply, update(socket, :desks, fn desks -> [desk | desks] end)}
+  end
+
+  defp filename(entry) do
+    [ext | _] = MIME.extensions(entry.client_type)
+    "#{entry.uuid}.#{ext}"
   end
 end
