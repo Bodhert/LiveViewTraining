@@ -11,12 +11,17 @@ defmodule LiveViewStudio.DesksTest do
     @invalid_attrs %{name: nil, photo_urls: nil}
 
     def desk_fixture(attrs \\ %{}) do
-      {:ok, desk} =
+      attrs =
         attrs
         |> Enum.into(@valid_attrs)
-        |> Desks.create_desk()
+
+      {:ok, desk} = Desks.create_desk(%Desk{}, attrs, &mock_consume_entries/1)
 
       desk
+    end
+
+    defp mock_consume_entries(desk) do
+      {:ok, desk}
     end
 
     test "list_desks/0 returns all desks" do
@@ -30,13 +35,16 @@ defmodule LiveViewStudio.DesksTest do
     end
 
     test "create_desk/1 with valid data creates a desk" do
-      assert {:ok, %Desk{} = desk} = Desks.create_desk(@valid_attrs)
+      assert {:ok, %Desk{} = desk} =
+               Desks.create_desk(%Desk{}, @valid_attrs, &mock_consume_entries/1)
+
       assert desk.name == "some name"
       assert desk.photo_urls == []
     end
 
     test "create_desk/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Desks.create_desk(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} =
+               Desks.create_desk(%Desk{}, @invalid_attrs, &mock_consume_entries/1)
     end
 
     test "update_desk/2 with valid data updates the desk" do

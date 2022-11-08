@@ -75,6 +75,15 @@ defmodule LiveViewStudioWeb.DesksLive do
     {:ok, desk}
   end
 
+  def error_to_string(:too_large),
+    do: "File too large (max 10 MB)."
+
+  def error_to_string(:too_many_files),
+    do: "You've selected too many files."
+
+  def error_to_string(:not_accepted),
+    do: "You've selected an unacceptable file type."
+
   defp filename(entry) do
     [ext | _] = MIME.extensions(entry.client_type)
     "#{entry.uuid}.#{ext}"
