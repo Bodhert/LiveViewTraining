@@ -4,12 +4,12 @@ defmodule LiveViewStudioWeb.CreaturesComponent do
   def render(assigns) do
     ~H"""
     <div>
+      <h2><%= @title %></h2>
       <div class="creatures">
             🐙 🐳 🦑 🐡 🐚 🐋 🐟 🦈 🐠 🦀 🐬
       </div>
-      <button phx-click="toggle-modal">
-        I'm outta air!
-      </button>
+      <%= live_patch "I'm outta air!", to: @return_to, class: "button" %>
+
     </div>
     """
   end
