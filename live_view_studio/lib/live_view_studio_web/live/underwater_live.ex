@@ -14,22 +14,10 @@ defmodule LiveViewStudioWeb.UnderwaterLive do
       </button>
 
       <%= if @show_modal do %>
-        <div class="phx-modal"
-          phx-window-keydown="toggle-modal"
-          phx-key="escape"
-          phx-capture-click="toggle-modal">
-          <div class="phx-modal-content">
-            <a href="#" phx-click="toggle-modal" class="phx-modal-close">
-              &times;
-            </a>
-            <div class="creatures">
-              🐙 🐳 🦑 🐡 🐚 🐋 🐟 🦈 🐠 🦀 🐬
-            </div>
-            <button phx-click="toggle-modal">
-             I'm outta air!
-            </button>
-          </div>
-        </div>
+        <%= live_component @socket,
+             LiveViewStudioWeb.ModalComponent,
+             id: :modal,
+             component: LiveViewStudioWeb.CreaturesComponent  %>
       <% end  %>
     </div>
     """
