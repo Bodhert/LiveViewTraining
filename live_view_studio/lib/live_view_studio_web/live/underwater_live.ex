@@ -5,7 +5,7 @@ defmodule LiveViewStudioWeb.UnderwaterLive do
     {:ok, socket}
   end
 
-  def handle_params(params, _url, socket) do
+  def handle_params(_params, _url, socket) do
     {:noreply, socket}
   end
 

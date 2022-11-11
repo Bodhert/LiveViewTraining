@@ -45,7 +45,7 @@ defmodule LiveViewStudioWeb.ServersLiveTest do
     |> form("#create-server", %{server: valid_attrs})
     |> render_submit()
 
-    assert has_element?(view, "#servers", valid_attrs.name)
+    assert_redirect(view, "/servers")
   end
 
   test "displays live validations", %{conn: conn} do

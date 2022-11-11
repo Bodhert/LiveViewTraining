@@ -16,13 +16,14 @@
       <div class="main" id="selected-server">
       <div class="wrapper">
       <%= if @live_action == :new do %>
-        <%= live_component @socket, ServerFormComponent,
-                        id: :form %> 
+        <%= live_modal @socket, ServerFormComponent,
+                        id: :new,
+                        title: "Add New Server",
+                        return_to: Routes.live_path(@socket, __MODULE__) %>
       <% else %>
           <%= live_component @socket, ServerComponent, selected_server: @selected_server,
-                            id: @selected_server.name %> 
+                            id: @selected_server.name %>
       <% end %>
         </div>
       </div>
   </div>
-

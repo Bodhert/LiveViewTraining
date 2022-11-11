@@ -22,7 +22,7 @@ defmodule LiveViewStudioWeb.ServerFormComponent do
           <%= submit "Save", phx_disable_with: "Saving ...." %>
           <%= live_patch "Cancel",
                 replace: true,
-                to: Routes.live_path(@socket, LiveViewStudioWeb.ServersLive),
+                to: @return_to,
                 class: "cancel" %>
       </.form>
     </div>
@@ -31,10 +31,10 @@ defmodule LiveViewStudioWeb.ServerFormComponent do
 
   def handle_event("save", %{"server" => params}, socket) do
     case Servers.create_server(params) do
-      {:ok, server} ->
+      {:ok, _server} ->
         socket =
-          push_patch(socket,
-            to: Routes.live_path(socket, LiveViewStudioWeb.ServersLive, name: server.name)
+          push_redirect(socket,
+            to: socket.assigns.return_to
           )
 
         {:noreply, socket}
