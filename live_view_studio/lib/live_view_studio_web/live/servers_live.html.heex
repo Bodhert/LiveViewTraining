@@ -16,7 +16,7 @@
       <div class="main" id="selected-server">
       <div class="wrapper">
       <%= if @live_action == :new do %>
-        <%= live_modal @socket, ServerFormComponent,
+        <%= live_modal  ServerFormComponent,
                         id: :new,
                         title: "Add New Server",
                         return_to: Routes.live_path(@socket, __MODULE__) %>

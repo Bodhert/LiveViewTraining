@@ -4,9 +4,8 @@ defmodule LiveViewStudioWeb.LiveHelpers do
 
   alias LiveViewStudio.Accounts
 
-  def live_modal(socket, component, opts) do
+  def live_modal(component, opts) do
     live_component(
-      socket,
       LiveViewStudioWeb.ModalComponent,
       id: :modal,
       component: component,

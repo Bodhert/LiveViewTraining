@@ -54,6 +54,11 @@ defmodule LiveViewStudio.Helpers do
     )
   end
 
+  def render(assigns) do
+    ~H"""
+    """
+  end
+
   defp toggle_sort_order(:asc), do: :desc
   defp toggle_sort_order(:desc), do: :asc
 

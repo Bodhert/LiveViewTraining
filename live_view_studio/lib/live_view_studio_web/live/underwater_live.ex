@@ -18,8 +18,7 @@ defmodule LiveViewStudioWeb.UnderwaterLive do
           class: "button" %>
 
       <%= if @live_action == :show_modal do %>
-        <%= live_modal @socket,
-             LiveViewStudioWeb.CreaturesComponent,
+        <%= live_modal LiveViewStudioWeb.CreaturesComponent,
              return_to: Routes.live_path(@socket, __MODULE__),
              title: "Sea Creatures" %>
       <% end  %>
