@@ -13,6 +13,13 @@ defmodule LiveViewStudio.MixProject do
       deps: deps(),
       elixirc_options: [
         warnings_as_errors: true
+      ],
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
       ]
     ]
   end
@@ -54,7 +61,8 @@ defmodule LiveViewStudio.MixProject do
       {:faker, "~> 0.17.0"},
       {:number, "~> 1.0"},
       {:timex, "~> 3.4"},
-      {:phx_gen_auth, "~> 0.6", only: [:dev], runtime: false}
+      {:phx_gen_auth, "~> 0.6", only: [:dev], runtime: false},
+      {:excoveralls, "~> 0.10", only: :test}
     ]
   end
 
