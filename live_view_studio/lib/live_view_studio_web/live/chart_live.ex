@@ -24,7 +24,7 @@ defmodule LiveViewStudioWeb.ChartLive do
     ~H"""
     <div id="charting">
     <h1>Blood Sugar</h1>
-    <div phx-update="ignore">
+    <div phx-update="ignore" id="readings">
       <canvas id="chart-canvas" phx-hook="LineChart"
               data-chart-data={Jason.encode!(@chart_data)}>
       </canvas>
@@ -33,7 +33,7 @@ defmodule LiveViewStudioWeb.ChartLive do
         <button phx-click="get-reading">
           Get Reading
         </button>
-        <div class="my-4">
+        <div class="my-4" id="reading">
           Total readings: <%= @current_reading %>
         </div>
       </div>
