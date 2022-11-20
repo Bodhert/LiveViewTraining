@@ -24,9 +24,49 @@ defmodule LiveViewStudioWeb.DesksLiveTest do
     assert has_element?(view, "#photos", "test")
   end
 
-  test "uploading a blank file cant be blank"
+  test "file name cant be blank", %{conn: conn} do
+    {:ok, view, _html} = live(conn, "/desks")
 
-  test "fails with big file size"
+    view
+    |> form("#create-desk", %{"desk[name]" => ""})
+    |> render_submit()
 
-  test "fails when uploading more than 3 files"
+    assert render(view) =~ "can&#39;t be blank"
+  end
+
+  test "fails with big file size", %{conn: conn} do
+    {:ok, view, _html} = live(conn, "/desks")
+
+    image =
+      file_input(view, "#create-desk", :photo, [
+        %{
+          name: "big",
+          content: File.read!("test/support/desks/big.jpg"),
+          type: "image/jpeg"
+        }
+      ])
+
+    render_upload(image, "big")
+
+    assert render(view) =~ "File too large"
+  end
+
+  test "fails when trying to upload more than 3 files", %{conn: conn} do
+    {:ok, view, _html} = live(conn, "/desks")
+
+    images =
+      for _n <- 1..4 do
+        file_input(view, "#create-desk", :photo, [
+          %{
+            name: "test",
+            content: File.read!("test/support/desks/1.jpeg"),
+            type: "image/jpeg"
+          }
+        ])
+      end
+
+    Enum.each(images, &render_upload(&1, "test"))
+
+    assert render(view) =~ "You&#39;ve selected too many files"
+  end
 end
