@@ -2,7 +2,6 @@ defmodule LiveViewStudio.MapLiveTest do
   use LiveViewStudioWeb.ConnCase, async: true
 
   import Phoenix.LiveViewTest
-  alias LiveViewStudio.Incidents
 
   test "reporting an incident creates a new item", %{conn: conn} do
     {:ok, view, _html} = live(conn, "/map")

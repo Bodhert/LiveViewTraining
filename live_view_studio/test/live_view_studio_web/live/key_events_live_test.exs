@@ -37,7 +37,7 @@ defmodule LiveViewStudioWeb.KeyEventsLiveTest do
       |> element("#key-events")
       |> render_keyup(%{"key" => "k"})
 
-    refute key_press =~ "Playing"
+    assert key_press =~ "Playing"
   end
 
   test "sending the picture name renders it", %{conn: conn} do

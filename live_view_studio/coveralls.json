@@ -1,0 +1,26 @@
+{
+  "default_stop_words": [
+    "defmodule",
+    "defrecord",
+    "defimpl",
+    "defexception",
+    "def.+(.+//.+).+do",
+    "use"
+  ],
+  "coverage_options": {
+    "treat_no_relevant_lines_as_covered": true,
+    "output_dir": "cover/",
+    "minimum_coverage": 90,
+    "html_filter_full_covered": true
+  },
+  "skip_files": [
+    "lib/live_view_studio/application.ex",
+    "lib/live_view_studio/geo.ex",
+    "lib/live_view_studio_web.ex",
+    "lib/live_view_studio_web/channels/user_socket.ex",
+    "lib/live_view_studio_web/router.ex",
+    "lib/live_view_studio_web/telemetry.ex",
+    "lib/live_view_studio_web/live/page_live.ex",
+    "test/support/channel_case.ex"
+  ]
+}
