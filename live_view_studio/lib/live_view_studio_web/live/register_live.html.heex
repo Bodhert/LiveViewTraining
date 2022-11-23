@@ -1,6 +1,6 @@
 <div class="auth">
   <h1>Live Register</h1>
-    <.form let={f} for={@changeset} url={Routes.user_registration_path(@socket, :create)}
+    <.form id={"register"} let={f} for={@changeset} url={Routes.user_registration_path(@socket, :create)}
       phx_submit={"save"} phx_trigger_action={@trigger_submit} phx_change={"validate"}  %>
       <%= label f, :email %>
       <%= email_input f, :email, required: true, phx_debounce: "blur" %>

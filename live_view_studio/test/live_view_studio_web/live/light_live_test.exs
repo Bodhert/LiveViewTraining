@@ -57,4 +57,12 @@ defmodule LiveViewStudioWeb.LightLiveTest do
            |> element("button", "Down")
            |> render_click() =~ "0%"
   end
+
+  test "random ligth displays random value", %{conn: conn} do
+    {:ok, view, html} = live(conn, "/light")
+
+    refute view
+           |> element("button", "Light Me Random!")
+           |> render_click() =~ html
+  end
 end
