@@ -4,7 +4,7 @@ defmodule LiveViewStudioWeb.UnderwaterLiveTest do
   import Phoenix.LiveViewTest
 
   test "renders the page", %{conn: conn} do
-    {:ok, view, html} = live(conn, "/underwater")
+    {:ok, _view, html} = live(conn, "/underwater")
     assert html =~ "🤿 Look Underwater 👀"
   end
 

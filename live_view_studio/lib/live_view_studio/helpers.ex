@@ -1,6 +1,4 @@
 defmodule LiveViewStudio.Helpers do
-  use LiveViewStudioWeb, :live_component
-
   def param_of_first_permitted(params, key, permitted) do
     value = params[key]
     if value in permitted, do: value, else: hd(permitted)
@@ -19,9 +17,9 @@ defmodule LiveViewStudio.Helpers do
   end
 
   def pagination_link(socket, module, text, page, options, class) do
-    live_patch(text,
+    Phoenix.LiveView.Helpers.live_patch(text,
       to:
-        Routes.live_path(
+        LiveViewStudioWeb.Router.Helpers.live_path(
           socket,
           module,
           page: page,
@@ -41,9 +39,9 @@ defmodule LiveViewStudio.Helpers do
         text
       end
 
-    live_patch(text,
+    Phoenix.LiveView.Helpers.live_patch(text,
       to:
-        Routes.live_path(
+        LiveViewStudioWeb.Router.Helpers.live_path(
           socket,
           module,
           sort_by: sort_by,
@@ -52,11 +50,6 @@ defmodule LiveViewStudio.Helpers do
           per_page: options.per_page
         )
     )
-  end
-
-  def render(assigns) do
-    ~H"""
-    """
   end
 
   defp toggle_sort_order(:asc), do: :desc

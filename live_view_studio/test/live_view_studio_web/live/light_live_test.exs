@@ -31,6 +31,14 @@ defmodule LiveViewStudioWeb.LightLiveTest do
            |> element("button", "Off")
            |> render_click() =~ "0%"
 
+    assert view
+           |> element("#light")
+           |> render_keyup(%{"key" => "ArrowUp"}) =~ "10%"
+
+    assert view
+           |> element("#light")
+           |> render_keyup(%{"key" => "ArrowDown"}) =~ "0%"
+
     refute render(view) =~ "100%"
   end
 
@@ -64,5 +72,21 @@ defmodule LiveViewStudioWeb.LightLiveTest do
     refute view
            |> element("button", "Light Me Random!")
            |> render_click() =~ html
+  end
+
+  test "changes the temperature", %{conn: conn} do
+    {:ok, view, _html} = live(conn, "/light")
+
+    assert view
+           |> form("#temp", %{temperature: 3000})
+           |> render_change() =~ "F1C40D"
+
+    assert view
+           |> form("#temp", %{temperature: 4000})
+           |> render_change() =~ "FEFF66"
+
+    assert view
+           |> form("#temp", %{temperature: 5000})
+           |> render_change() =~ "99CCFF"
   end
 end

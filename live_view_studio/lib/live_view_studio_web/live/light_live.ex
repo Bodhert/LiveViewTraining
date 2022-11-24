@@ -45,7 +45,7 @@ defmodule LiveViewStudioWeb.LightLive do
               name="brightness" value={@brightness} />
       </form>
 
-      <form phx-change="change-temp">
+      <form id="temp" phx-change="change-temp">
         <%= for temp <- [3000, 4000, 5000] do %>
           <%=  temp_radio_button(temp: temp, checked: temp == @temperature)%>
         <% end %>

@@ -21,5 +21,12 @@ defmodule LiveViewStudioWeb.LicenseLiveTest do
 
     assert has_element?(view, "#seats", "4")
     assert has_element?(view, "#amount", "$80.00")
+
+    view
+    |> form("#update-seats", %{seats: 6})
+    |> render_change()
+
+    assert has_element?(view, "#seats", "6")
+    assert has_element?(view, "#amount", "$115.00")
   end
 end
