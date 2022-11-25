@@ -35,12 +35,34 @@ defmodule LiveViewStudioWeb.SortLiveTest do
     assert render(view) =~ donations_in_order(donation1, donation2, donation3)
   end
 
+  test "displays the selected per_page items", %{conn: conn} do
+    for i <- 1..10 do
+      create_donation("testaroo-#{i}")
+    end
+
+    {:ok, view, html} = live(conn, "/sort")
+
+    assert has_element?(view, "#paginate-options", "5")
+    assert number_of_items(html) == 5
+
+    view
+    |> form("#paginate", %{"per-page" => "10"})
+    |> render_change()
+
+    assert has_element?(view, "#paginate-options", "10")
+    assert number_of_items(render(view)) == 10
+  end
+
   defp donations_in_order(first, second, third) do
     ~r/#{first.item}.*#{second.item}.*#{third.item}/s
   end
 
   defp sort_path(sort_by, sort_order) do
     "/sort?" <> "sort_by=#{sort_by}&sort_order=#{sort_order}&page=1&per_page=5"
+  end
+
+  defp number_of_items(html) do
+    html |> :binary.matches("testaroo") |> length()
   end
 
   defp create_donation(item) do
