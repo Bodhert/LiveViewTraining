@@ -1,13 +1,12 @@
 <h1>What's On Your Desk?</h1>
 <div id="desks">
   <.form
-    let={f}
+    :let={f}
     for={@changeset}
-    url="#"
+    action="#"
     id="create-desk"
     phx-submit="save"
     phx-change="validate"
-    %
   >
     <%= text_input(f, :name, placeholder: "Name") %>
     <%= error_tag(f, :name) %>
@@ -42,7 +41,7 @@
 
     <%= for entry <- @uploads.photo.entries do %>
       <div class="entry">
-        <%= live_img_preview(entry) %>
+        <.live_img_preview entry={entry} />
         <div class="progress">
           <div class="value">
             <%= entry.progress %>%

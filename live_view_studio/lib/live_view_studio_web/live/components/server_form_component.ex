@@ -15,9 +15,9 @@ defmodule LiveViewStudioWeb.ServerFormComponent do
     <div>
       <.form
         id="create-server"
-        let={f}
+        :let={f}
         for={@changeset}
-        url="#"
+        action="#"
         phx-submit="save"
         phx-change="validate"
         phx-target={@myself}
@@ -65,15 +65,15 @@ defmodule LiveViewStudioWeb.ServerFormComponent do
   end
 
   defp generate_input_field(form, field, placeholder) do
-    assigns = %{}
+    assigns = %{form: form, field: field, placeholder: placeholder}
 
     ~H"""
-    <%= label(form, placeholder) %>
-    <%= text_input(form, field,
+    <%= label(@form, @placeholder) %>
+    <%= text_input(@form, @field,
       autocomplete: "off",
       phx_debounce: "blur"
     ) %>
-    <%= error_tag(form, field) %>
+    <%= error_tag(@form, @field) %>
     """
   end
 end

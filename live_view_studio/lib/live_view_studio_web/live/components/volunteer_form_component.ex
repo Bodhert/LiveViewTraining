@@ -14,12 +14,12 @@ defmodule LiveViewStudioWeb.VolunteerFormComponent do
     <div>
       <.form
         id="create-volunteer"
-        let={f}
+        :let={f}
         for={@changeset}
-        url="#"
+        action="#"
         phx-submit="save"
         phx-change="validate"
-        phx_target={@myself}
+        phx-target={@myself}
       >
         <div class="field">
           <%= text_input(f, :name,

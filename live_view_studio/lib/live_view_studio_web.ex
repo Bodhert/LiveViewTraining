@@ -45,7 +45,7 @@ defmodule LiveViewStudioWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {LiveViewStudioWeb.LayoutView, "live.html"}
+        layout: {LiveViewStudioWeb.LayoutView, :live}
 
       import LiveViewStudioWeb.LiveHelpers
 
@@ -85,6 +85,7 @@ defmodule LiveViewStudioWeb do
 
       # Import LiveView helpers (live_render, live_component, live_patch, etc)
       import Phoenix.LiveView.Helpers
+      import Phoenix.Component
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
