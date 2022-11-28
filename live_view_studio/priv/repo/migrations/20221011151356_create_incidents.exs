@@ -9,6 +9,5 @@ defmodule LiveViewStudio.Repo.Migrations.CreateIncidents do
 
       timestamps()
     end
-
   end
 end

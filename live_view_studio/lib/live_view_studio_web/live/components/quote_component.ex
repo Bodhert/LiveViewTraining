@@ -10,9 +10,9 @@ defmodule LiveViewStudioWeb.QuoteComponent do
         our Best Deal:
       </h2>
       <h3 class="text-xl font-semibold text-indigo-600">
-        <%= @weight %> pounds of <%= @material %> for
-        <%= number_to_currency(@price) %> plus <%= number_to_currency(@charge) %>
-        delivery
+        <%= @weight %> pounds of <%= @material %> for <%= number_to_currency(@price) %> plus <%= number_to_currency(
+          @charge
+        ) %> delivery
       </h3>
       <div class="text-gray-600">
         expires in <%= @hrs_until_expires %> hours

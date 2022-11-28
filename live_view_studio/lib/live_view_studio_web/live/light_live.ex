@@ -8,31 +8,30 @@ defmodule LiveViewStudioWeb.LightLive do
 
   def render(assigns) do
     ~H"""
-      <h1>Front porch light</h1>
-      <div id="light" phx-window-keyup="update">
+    <h1>Front porch light</h1>
+    <div id="light" phx-window-keyup="update">
       <div class="meter">
-      <span style={"background-color:#{temp_color(@temperature)}; width: #{@brightness}%"}>
-        <%= @brightness %>%
-      </span>
+        <span style={"background-color:#{temp_color(@temperature)}; width: #{@brightness}%"}>
+          <%= @brightness %>%
+        </span>
       </div>
       <button phx-click="off">
-        <img src="images/light-off.svg">
+        <img src="images/light-off.svg" />
         <span class="sr-only">Off</span>
       </button>
 
       <button phx-click="down">
-        <img src="images/down.svg">
+        <img src="images/down.svg" />
         <span class="sr-only">Down</span>
       </button>
 
       <button phx-click="up">
-        <img src="images/up.svg">
+        <img src="images/up.svg" />
         <span class="sr-only">Up</span>
       </button>
 
-
       <button phx-click="on">
-        <img src="images/light-on.svg">
+        <img src="images/light-on.svg" />
         <span class="sr-only">On</span>
       </button>
 
@@ -41,13 +40,12 @@ defmodule LiveViewStudioWeb.LightLive do
       </button>
 
       <form phx-change="update">
-      <input type="range" min="0" max="100"
-              name="brightness" value={@brightness} />
+        <input type="range" min="0" max="100" name="brightness" value={@brightness} />
       </form>
 
       <form id="temp" phx-change="change-temp">
         <%= for temp <- [3000, 4000, 5000] do %>
-          <%=  temp_radio_button(temp: temp, checked: temp == @temperature)%>
+          <%= temp_radio_button(temp: temp, checked: temp == @temperature) %>
         <% end %>
       </form>
     </div>
@@ -108,8 +106,8 @@ defmodule LiveViewStudioWeb.LightLive do
     assigns = Enum.into(assigns, %{})
 
     ~H"""
-        <input type="radio" id={to_string(@temp)} name="temperature" value={@temp} checked={@checked}/>
-        <label for={@temp}><%= @temp %></label>
+    <input type="radio" id={to_string(@temp)} name="temperature" value={@temp} checked={@checked} />
+    <label for={@temp}><%= @temp %></label>
     """
   end
 end

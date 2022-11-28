@@ -12,23 +12,33 @@ defmodule LiveViewStudioWeb.VolunteerFormComponent do
   def render(assigns) do
     ~H"""
     <div>
-      <.form id="create-volunteer" let={f} for={@changeset} url="#" phx-submit="save" phx-change="validate" phx_target={@myself}>
+      <.form
+        id="create-volunteer"
+        let={f}
+        for={@changeset}
+        url="#"
+        phx-submit="save"
+        phx-change="validate"
+        phx_target={@myself}
+      >
         <div class="field">
-            <%= text_input f, :name,
-                              placeholder: "Name",
-                              autocomplete: "off",
-                              phx_debounce: "2000" %>
-            <%= error_tag f, :name %>
+          <%= text_input(f, :name,
+            placeholder: "Name",
+            autocomplete: "off",
+            phx_debounce: "2000"
+          ) %>
+          <%= error_tag(f, :name) %>
         </div>
-        <div class="field" >
-            <%= telephone_input f, :phone,
-                              placeholder: "Phone",
-                              autocomplete: "off",
-                              phx_debounce: "blur",
-                              phx_hook: "FormatPhone" %>
-            <%= error_tag f, :phone %>
+        <div class="field">
+          <%= telephone_input(f, :phone,
+            placeholder: "Phone",
+            autocomplete: "off",
+            phx_debounce: "blur",
+            phx_hook: "FormatPhone"
+          ) %>
+          <%= error_tag(f, :phone) %>
         </div>
-        <%= submit "Check in", phx_disable_with: "Saving ...." %>
+        <%= submit("Check in", phx_disable_with: "Saving ....") %>
       </.form>
     </div>
     """

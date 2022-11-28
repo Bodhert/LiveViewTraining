@@ -15,10 +15,10 @@ defmodule LiveViewStudioWeb.KeyEventsLive do
     ~H"""
     <h1>Juggling Key Events</h1>
     <div id="key-events" phx-window-keyup="update">
-      <img src={"/images/juggling/#{Enum.at(@images, @current)}"}>
+      <img src={"/images/juggling/#{Enum.at(@images, @current)}"} />
       <div class="status">
         <%= Enum.at(@images, @current) %>
-        <input type="number" value={@current} phx-keyup="set-current" phx-key="Enter"/>
+        <input type="number" value={@current} phx-keyup="set-current" phx-key="Enter" />
         <div>
           <%= if @is_playing, do: "Playing", else: "Paused" %>
         </div>

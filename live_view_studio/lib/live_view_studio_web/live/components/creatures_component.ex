@@ -6,10 +6,9 @@ defmodule LiveViewStudioWeb.CreaturesComponent do
     <div>
       <h2><%= @title %></h2>
       <div class="creatures">
-            🐙 🐳 🦑 🐡 🐚 🐋 🐟 🦈 🐠 🦀 🐬
+        🐙 🐳 🦑 🐡 🐚 🐋 🐟 🦈 🐠 🦀 🐬
       </div>
-      <%= live_patch "I'm outta air!", to: @return_to, class: "button" %>
-
+      <%= live_patch("I'm outta air!", to: @return_to, class: "button") %>
     </div>
     """
   end

@@ -12,40 +12,40 @@ defmodule LiveViewStudioWeb.FilterLive do
     ~H"""
     <h1>Daily Boat Rentals</h1>
     <div id="filter">
-    <form id="change-filter" phx-change="filter">
-      <div class="filters">
-        <select name="type">
-          <%= options_for_select(type_options(), @type) %>
-        </select>
-        <div class="prices">
-        <input type="hidden" name="prices[]" value="" />
-          <%= for price <- ["$", "$$", "$$$"] do %>
-            <%= price_checkbox(%{price: price, checked: price in @prices}) %>
-          <% end %>
-        </div>
-        <a href="#" phx-click="clean-filters">Clear All</a>
-      </div>
-    </form>
-    <div class="boats">
-    <%= for boat <- @boats do %>
-      <div id={"boat-#{boat.id}"} class="card">
-        <img src={boat.image}>
-        <div class="content">
-          <div class="model">
-            <%= boat.model %>
+      <form id="change-filter" phx-change="filter">
+        <div class="filters">
+          <select name="type">
+            <%= options_for_select(type_options(), @type) %>
+          </select>
+          <div class="prices">
+            <input type="hidden" name="prices[]" value="" />
+            <%= for price <- ["$", "$$", "$$$"] do %>
+              <%= price_checkbox(%{price: price, checked: price in @prices}) %>
+            <% end %>
           </div>
-          <div class="details">
-            <span class="price">
-              <%= boat.price %>
-            </span>
-            <span class="type">
-              <%= boat.type %>
-            </span>
-          </div>
+          <a href="#" phx-click="clean-filters">Clear All</a>
         </div>
+      </form>
+      <div class="boats">
+        <%= for boat <- @boats do %>
+          <div id={"boat-#{boat.id}"} class="card">
+            <img src={boat.image} />
+            <div class="content">
+              <div class="model">
+                <%= boat.model %>
+              </div>
+              <div class="details">
+                <span class="price">
+                  <%= boat.price %>
+                </span>
+                <span class="type">
+                  <%= boat.type %>
+                </span>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
-    <% end %>
-    </div>
     </div>
     """
   end
@@ -64,8 +64,8 @@ defmodule LiveViewStudioWeb.FilterLive do
 
   defp price_checkbox(assigns) do
     ~H"""
-     <input type="checkbox" id={@price} name="prices[]" value={@price} checked={@checked}/>
-     <label for={@price}><%= @price %></label>
+    <input type="checkbox" id={@price} name="prices[]" value={@price} checked={@checked} />
+    <label for={@price}><%= @price %></label>
     """
   end
 

@@ -20,21 +20,36 @@ defmodule LiveViewStudioWeb.FlightsLive do
     ~H"""
     <h1>Find a Flight</h1>
     <div id="search">
-    <form id="flight-search" phx-submit="flight-search">
-    <input  type="text" name="flight_info" value={@flight} placeholder="flight info"
-      autofocus autocomplete="off" readonly={@loading} />
-      <button type="submit">
-        <img src="images/search.svg" >
-      </button>
-    </form>
+      <form id="flight-search" phx-submit="flight-search">
+        <input
+          type="text"
+          name="flight_info"
+          value={@flight}
+          placeholder="flight info"
+          autofocus
+          autocomplete="off"
+          readonly={@loading}
+        />
+        <button type="submit">
+          <img src="images/search.svg" />
+        </button>
+      </form>
 
-    <form id="airport-search" phx-submit="airport-search" phx-change="suggest-airport">
-    <input type="text" name="airport" value={@airport} placeholder="airport info"
-     autofocus autocomplete="off" readonly={@loading} list="matches"/>
-      <button type="submit">
-          <img src="images/search.svg" >
-      </button>
-    </form>
+      <form id="airport-search" phx-submit="airport-search" phx-change="suggest-airport">
+        <input
+          type="text"
+          name="airport"
+          value={@airport}
+          placeholder="airport info"
+          autofocus
+          autocomplete="off"
+          readonly={@loading}
+          list="matches"
+        />
+        <button type="submit">
+          <img src="images/search.svg" />
+        </button>
+      </form>
 
       <datalist id="matches">
         <%= for match <- @matches do %>
@@ -55,9 +70,8 @@ defmodule LiveViewStudioWeb.FlightsLive do
                   Flight #<%= flight.number %>
                 </div>
                 <div class="origin-destination">
-                  <img src="images/location.svg">
-                  <%= flight.origin %> to
-                  <%= flight.destination %>
+                  <img src="images/location.svg" />
+                  <%= flight.origin %> to <%= flight.destination %>
                 </div>
               </div>
               <div class="second-line">

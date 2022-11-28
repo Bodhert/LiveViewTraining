@@ -24,33 +24,32 @@ defmodule LiveViewStudioWeb.LicenseLive do
 
   def render(assigns) do
     ~H"""
-    <h1>Team License for  <%= @current_user.email %></h1>
+    <h1>Team License for <%= @current_user.email %></h1>
     <div id="license">
-    <div class="card">
-    <div class="content">
-      <div id="seats" class="seats">
-        <img src="images/license.svg">
-        <span>
-          Your license is currently for
-          <strong><%= @seats %></strong> <%= ngettext("seat", "seats", @seats) %>.
-        </span>
+      <div class="card">
+        <div class="content">
+          <div id="seats" class="seats">
+            <img src="images/license.svg" />
+            <span>
+              Your license is currently for
+              <strong><%= @seats %></strong> <%= ngettext("seat", "seats", @seats) %>.
+            </span>
+          </div>
+          <form id="update-seats" phx-change="update">
+            <input type="range" min="1" max="10" name="seats" value={@seats} phx-debounce="250" />
+          </form>
+          <div id="amount" class="amount">
+            <%= number_to_currency(@amount) %>
+          </div>
+          <p class="m-4 font-semibold text-indigo-800">
+            <%= if @time_remaining > 0 do %>
+              <%= format_time(@time_remaining) %> left to save 20%
+            <% else %>
+              Expired!
+            <% end %>
+          </p>
+        </div>
       </div>
-      <form id="update-seats" phx-change="update">
-        <input type="range" min="1" max="10"
-              name="seats" value={@seats} phx-debounce="250" />
-      </form>
-      <div id="amount" class="amount">
-        <%= number_to_currency(@amount) %>
-      </div>
-      <p class="m-4 font-semibold text-indigo-800">
-        <%= if @time_remaining > 0 do %>
-          <%= format_time(@time_remaining) %> left to save 20%
-        <% else %>
-            Expired!
-        <% end %>
-      </p>
-    </div>
-    </div>
     </div>
     """
   end

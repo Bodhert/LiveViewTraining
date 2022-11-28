@@ -18,50 +18,48 @@ defmodule LiveViewStudioWeb.SalesDashboardLive do
     ~H"""
     <h1>Sales Dashboard</h1>
     <div id="dashboard">
-    <div class="stats">
-    <div class="stat">
-      <span class="value">
-        <%= @new_orders %>
-      </span>
-      <span class="name">
-        New Orders
-      </span>
-    </div>
-    <div class="stat">
-      <span id="sales-amount" class="value">
-        $<%= @sales_amount %>
-      </span>
-      <span class="name">
-        Sales Amount
-      </span>
-    </div>
-    <div class="stat">
-      <span class="value">
-        <%= @satisfaction %>%
-      </span>
-      <span class="name">
-        Satisfaction
-      </span>
-    </div>
-    </div>
-    <div class="controls">
-      <form phx-change="select-refresh">
-      <label for="refresh">
-       Refresh every
-       </label>
-       <select name="refresh" >
-       <%= options_for_select(refresh_options(), @refresh) %>
-       </select>
-       </form>
-       <button phx-click="refresh">
-       <img src="images/refresh.svg">
-       Refresh
-       </button>
+      <div class="stats">
+        <div class="stat">
+          <span class="value">
+            <%= @new_orders %>
+          </span>
+          <span class="name">
+            New Orders
+          </span>
+        </div>
+        <div class="stat">
+          <span id="sales-amount" class="value">
+            $<%= @sales_amount %>
+          </span>
+          <span class="name">
+            Sales Amount
+          </span>
+        </div>
+        <div class="stat">
+          <span class="value">
+            <%= @satisfaction %>%
+          </span>
+          <span class="name">
+            Satisfaction
+          </span>
+        </div>
+      </div>
+      <div class="controls">
+        <form phx-change="select-refresh">
+          <label for="refresh">
+            Refresh every
+          </label>
+          <select name="refresh">
+            <%= options_for_select(refresh_options(), @refresh) %>
+          </select>
+        </form>
+        <button phx-click="refresh">
+          <img src="images/refresh.svg" /> Refresh
+        </button>
         <label>
-         last_update:
-          <%= Timex.format!(@last_updated_at, "%H:%M:%S", :strftime) %>
-       </label>
-    </div>
+          last_update: <%= Timex.format!(@last_updated_at, "%H:%M:%S", :strftime) %>
+        </label>
+      </div>
     </div>
     """
   end

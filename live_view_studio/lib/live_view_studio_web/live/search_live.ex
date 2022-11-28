@@ -18,52 +18,58 @@ defmodule LiveViewStudioWeb.SearchLive do
     ~H"""
     <h1>Find a Store</h1>
     <div id="search">
+      <form id="zip-search" phx-submit="zip-search">
+        <input
+          type="text"
+          name="zip"
+          value={@zip}
+          placeholder="Zip Code"
+          autofocus
+          autocomplete="off"
+          readonly={@loading}
+        />
 
-    <form id="zip-search" phx-submit="zip-search">
-    <input type="text" name="zip" value={@zip} placeholder="Zip Code"
-      autofocus autocomplete="off" readonly={@loading} />
+        <button type="submit">
+          <img src="images/search.svg" />
+        </button>
+      </form>
 
-      <button type="submit">
-        <img src="images/search.svg" >
-      </button>
-    </form>
-
-    <%= if @loading do %>
-      <div class="loader">
-        Loading...
-      </div>
-    <% end %>
-
-    <div class="stores">
-    <ul>
-      <%= for store <- @stores do %>
-        <li>
-          <div class="first-line">
-            <div class="name">
-              <%= store.name %>
-            </div>
-            <div class="status">
-              <%= if store.open do %>
-                <span class="open">Open</span>
-              <% else %>
-                <span class="closed">Closed</span>
-              <% end %>
-            </div>
-          </div>
-          <div class="second-line">
-            <div class="street">
-              <img src="images/location.svg">
-              <%= store.street %>
-            </div>
-            <div class="phone_number">
-              <img src="images/phone.svg">
-              <%= store.phone_number %>
-            </div>
-          </div>
-        </li>
+      <%= if @loading do %>
+        <div class="loader">
+          Loading...
+        </div>
       <% end %>
-    </ul>
-    </div>
+
+      <div class="stores">
+        <ul>
+          <%= for store <- @stores do %>
+            <li>
+              <div class="first-line">
+                <div class="name">
+                  <%= store.name %>
+                </div>
+                <div class="status">
+                  <%= if store.open do %>
+                    <span class="open">Open</span>
+                  <% else %>
+                    <span class="closed">Closed</span>
+                  <% end %>
+                </div>
+              </div>
+              <div class="second-line">
+                <div class="street">
+                  <img src="images/location.svg" />
+                  <%= store.street %>
+                </div>
+                <div class="phone_number">
+                  <img src="images/phone.svg" />
+                  <%= store.phone_number %>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
     """
   end

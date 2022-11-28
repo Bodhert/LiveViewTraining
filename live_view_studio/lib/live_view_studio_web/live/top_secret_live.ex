@@ -9,7 +9,7 @@ defmodule LiveViewStudioWeb.TopSecretLive do
     ~H"""
     <h1>Top Secret</h1>
     <div id="top-secret">
-      <img src="images/spy.svg">
+      <img src="images/spy.svg" />
       <div class="mission">
         <h2>Your Mission</h2>
         <h3><%= pad_id(@current_user) %></h3>

@@ -1,12 +1,19 @@
 <section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
+  <h1><%= gettext("Welcome to %{name}!", name: "Phoenix") %></h1>
   <p>Peace of mind from prototype to production</p>
 
   <form phx-change="suggest" phx-submit="search">
-    <input type="text" name="q" value={@query} placeholder="Live dependency search" list="results" autocomplete="off"/>
+    <input
+      type="text"
+      name="q"
+      value={@query}
+      placeholder="Live dependency search"
+      list="results"
+      autocomplete="off"
+    />
     <datalist id="results">
       <%= for {app, _vsn} <- @results do %>
-        <option value={app} ><%= app %></option>
+        <option value={app}><%= app %></option>
       <% end %>
     </datalist>
     <button type="submit" phx-disable-with="Searching...">Go to Hexdocs</button>
@@ -24,7 +31,9 @@
         <a href="https://github.com/phoenixframework/phoenix">Source</a>
       </li>
       <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.5/CHANGELOG.md">v1.5 Changelog</a>
+        <a href="https://github.com/phoenixframework/phoenix/blob/v1.5/CHANGELOG.md">
+          v1.5 Changelog
+        </a>
       </li>
     </ul>
   </article>
@@ -35,7 +44,9 @@
         <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
       </li>
       <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
+        <a href="https://webchat.freenode.net/?channels=elixir-lang">
+          #elixir-lang on Freenode IRC
+        </a>
       </li>
       <li>
         <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
@@ -48,34 +59,41 @@
   <article class="column">
     <h2>Examples</h2>
     <ul>
-    <li>
-      <%= live_redirect "Light",
-          to: Routes.live_path(@socket, LiveViewStudioWeb.LightLive) %>
-    </li>
-    <li>
-      <%= live_redirect "Team License",
-          to: Routes.live_path(@socket, LiveViewStudioWeb.LicenseLive) %>
-    </li>
-    <li>
-      <%= live_redirect "Sales Dashboard",
-        to: Routes.live_path(@socket, LiveViewStudioWeb.SalesDashboardLive) %>
-    </li>
-    <li>
-      <%= live_redirect "Search",
-        to: Routes.live_path(@socket, LiveViewStudioWeb.SearchLive) %>
-    </li>
-    <li>
-      <%= live_redirect "Autocomplete",
-        to: Routes.live_path(@socket, LiveViewStudioWeb.AutocompleteLive) %>
-    </li>
-    <li>
-      <%= live_redirect "Filter",
-        to: Routes.live_path(@socket, LiveViewStudioWeb.FilterLive) %>
-    </li>
-    <li>
-      <%= live_redirect "Servers",
-        to: Routes.live_path(@socket, LiveViewStudioWeb.ServersLive) %>
-    </li>
+      <li>
+        <%= live_redirect("Light",
+          to: Routes.live_path(@socket, LiveViewStudioWeb.LightLive)
+        ) %>
+      </li>
+      <li>
+        <%= live_redirect("Team License",
+          to: Routes.live_path(@socket, LiveViewStudioWeb.LicenseLive)
+        ) %>
+      </li>
+      <li>
+        <%= live_redirect("Sales Dashboard",
+          to: Routes.live_path(@socket, LiveViewStudioWeb.SalesDashboardLive)
+        ) %>
+      </li>
+      <li>
+        <%= live_redirect("Search",
+          to: Routes.live_path(@socket, LiveViewStudioWeb.SearchLive)
+        ) %>
+      </li>
+      <li>
+        <%= live_redirect("Autocomplete",
+          to: Routes.live_path(@socket, LiveViewStudioWeb.AutocompleteLive)
+        ) %>
+      </li>
+      <li>
+        <%= live_redirect("Filter",
+          to: Routes.live_path(@socket, LiveViewStudioWeb.FilterLive)
+        ) %>
+      </li>
+      <li>
+        <%= live_redirect("Servers",
+          to: Routes.live_path(@socket, LiveViewStudioWeb.ServersLive)
+        ) %>
+      </li>
     </ul>
   </article>
 </section>

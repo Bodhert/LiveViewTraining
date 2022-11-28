@@ -22,18 +22,18 @@ defmodule LiveViewStudioWeb.MapLive do
     <div id="mapping">
       <div class="sidebar">
         <%= for incident <- @incidents do %>
-          <div class={"incident #{if @selected_incident == incident, do: "selected"}"}
-               phx-click="select-incident"
-               phx-value-id={incident.id}>
+          <div
+            class={"incident #{if @selected_incident == incident, do: "selected"}"}
+            phx-click="select-incident"
+            phx-value-id={incident.id}
+          >
             <%= incident.description %>
           </div>
         <% end %>
       </div>
       <div class="main">
         <div id="wrapper" phx-update="ignore">
-          <div id="map"
-              phx-hook="IncidentMap">
-          </div>
+          <div id="map" phx-hook="IncidentMap"></div>
         </div>
         <div class="text-center">
           <button phx-click="report-incident">

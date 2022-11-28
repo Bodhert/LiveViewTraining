@@ -1,73 +1,75 @@
 <h1>What's On Your Desk?</h1>
 <div id="desks">
-  <.form let={f} for={@changeset}
+  <.form
+    let={f}
+    for={@changeset}
     url="#"
     id="create-desk"
     phx-submit="save"
-    phx-change="validate" %>
+    phx-change="validate"
+    %
+  >
+    <%= text_input(f, :name, placeholder: "Name") %>
+    <%= error_tag(f, :name) %>
 
-      <%= text_input f, :name, placeholder: "Name" %>
-      <%= error_tag f, :name %>
-      
-      <div class="hint">
-        Add up to <%= @uploads.photo.max_entries %> photos
-        (max <%= trunc(@uploads.photo.max_file_size / 1_000_000) %> MB each)
-      </div>
+    <div class="hint">
+      Add up to <%= @uploads.photo.max_entries %> photos
+      (max <%= trunc(@uploads.photo.max_file_size / 1_000_000) %> MB each)
+    </div>
 
-      <div class="drop" phx-drop-target={@uploads.photo.ref}>
+    <div class="drop" phx-drop-target={@uploads.photo.ref}>
+      <div>
+        <img src="/images/upload.svg" />
         <div>
-          <img src="/images/upload.svg">
-          <div>
-            <label for={@uploads.photo.ref}>
-              <span>Upload a file</span>
-              <%= live_file_input @uploads.photo, class: "sr-only" %>
-            </label>
-            <span>or drag and drop</span>
-          </div>
-          <p>
-            <%= @uploads.photo.max_entries %> photos max,
-            up to <%= trunc(@uploads.photo.max_file_size / 1_000_000) %> MB each
-          </p>
+          <label for={@uploads.photo.ref}>
+            <span>Upload a file</span>
+            <%= live_file_input(@uploads.photo, class: "sr-only") %>
+          </label>
+          <span>or drag and drop</span>
         </div>
+        <p>
+          <%= @uploads.photo.max_entries %> photos max,
+          up to <%= trunc(@uploads.photo.max_file_size / 1_000_000) %> MB each
+        </p>
       </div>
+    </div>
 
+    <%= for {ref, err} <- @uploads.photo.errors, ref == @uploads.photo.ref do %>
+      <div class="error">
+        <%= error_to_string(err) %>
+      </div>
+    <% end %>
 
-      <%= for {ref, err} <- @uploads.photo.errors, ref == @uploads.photo.ref do %>
-        <div class="error">
-          <%= error_to_string(err) %>
-        </div>
-      <% end %>
-
-      <%= for entry <- @uploads.photo.entries do %>
-        <div class="entry">
-          <%= live_img_preview entry  %>
-          <div class="progress">
-            <div class="value">
-              <%= entry.progress %>% 
-            </div>
-            <div class="bar">
-              <span style={"width: #{entry.progress}%"}></span>
-            </div>
+    <%= for entry <- @uploads.photo.entries do %>
+      <div class="entry">
+        <%= live_img_preview(entry) %>
+        <div class="progress">
+          <div class="value">
+            <%= entry.progress %>%
           </div>
-          <a href="#" phx-click="cancel" phx-value-ref={entry.ref}>
-              &times;
-          </a>
-          <%= for err <- upload_errors(@uploads.photo, entry) do %>
-            <div class="error">
-              <%= error_to_string(err) %>
-            </div>
-          <% end %>
+          <div class="bar">
+            <span style={"width: #{entry.progress}%"}></span>
+          </div>
         </div>
-      <% end %>
+        <a href="#" phx-click="cancel" phx-value-ref={entry.ref}>
+          &times;
+        </a>
+        <%= for err <- upload_errors(@uploads.photo, entry) do %>
+          <div class="error">
+            <%= error_to_string(err) %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
 
-      <%= submit "Upload", phx_disable_with: "Uploading..." %>
+    <%= submit("Upload", phx_disable_with: "Uploading...") %>
   </.form>
 
   <div id="photos" phx-update="prepend">
     <%= for desk <- @desks do %>
       <%= for {photo_url, index} <- Enum.with_index(desk.photo_urls) do %>
         <div class="photo" id={"#{desk.id}-#{index}"}>
-          <img src={photo_url}>
+          <img src={photo_url} />
           <div class="name">
             <%= desk.name %> (<%= index + 1 %>)
           </div>
@@ -75,5 +77,4 @@
       <% end %>
     <% end %>
   </div>
-
 </div>

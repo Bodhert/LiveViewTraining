@@ -13,15 +13,17 @@ defmodule LiveViewStudioWeb.UnderwaterLive do
     ~H"""
     <h1>Earth Is Super Watery</h1>
     <div id="underwater">
-      <%= live_patch "🤿 Look Underwater 👀",
-          to: Routes.underwater_path(@socket, :show_modal),
-          class: "button" %>
+      <%= live_patch("🤿 Look Underwater 👀",
+        to: Routes.underwater_path(@socket, :show_modal),
+        class: "button"
+      ) %>
 
       <%= if @live_action == :show_modal do %>
-        <%= live_modal LiveViewStudioWeb.CreaturesComponent,
-             return_to: Routes.live_path(@socket, __MODULE__),
-             title: "Sea Creatures" %>
-      <% end  %>
+        <%= live_modal(LiveViewStudioWeb.CreaturesComponent,
+          return_to: Routes.live_path(@socket, __MODULE__),
+          title: "Sea Creatures"
+        ) %>
+      <% end %>
     </div>
     """
   end

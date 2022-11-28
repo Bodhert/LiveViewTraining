@@ -23,12 +23,11 @@ defmodule LiveViewStudioWeb.ChartLive do
   def render(assigns) do
     ~H"""
     <div id="charting">
-    <h1>Blood Sugar</h1>
-    <div phx-update="ignore" id="readings">
-      <canvas id="chart-canvas" phx-hook="LineChart"
-              data-chart-data={Jason.encode!(@chart_data)}>
-      </canvas>
-    </div>
+      <h1>Blood Sugar</h1>
+      <div phx-update="ignore" id="readings">
+        <canvas id="chart-canvas" phx-hook="LineChart" data-chart-data={Jason.encode!(@chart_data)}>
+        </canvas>
+      </div>
       <div class="text-center">
         <button phx-click="get-reading">
           Get Reading

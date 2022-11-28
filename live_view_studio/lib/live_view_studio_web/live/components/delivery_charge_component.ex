@@ -11,7 +11,7 @@ defmodule LiveViewStudioWeb.DeliveryChargeComponent do
   def render(assigns) do
     ~H"""
     <form phx-change="calculate" phx-target={@myself} id={@id}>
-      <div class="field" >
+      <div class="field">
         <label for="zip">Zip Code:</label>
         <input type="text" name="zip" value={@zip} />
         <span class="unit"><%= number_to_currency(@charge) %></span>
