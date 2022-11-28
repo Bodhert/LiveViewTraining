@@ -28,7 +28,7 @@ defmodule LiveViewStudioWeb.InfiniteScrollLive do
       <h1>Pizza Lovers Timeline</h1>
       <div id="orders" phx-update="append">
         <%= for order <- @orders do %>
-          <div class="order" id={order.id}>
+          <div class="order" id={to_string(order.id)}>
             <div class="id">
               <%= order.id %>
             </div>

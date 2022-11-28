@@ -1,10 +1,9 @@
-<HeaderComponent.header title="Volunteer Check-In"
-                        subtitle={@recent_activity}/>
+<HeaderComponent.header title="Volunteer Check-In" subtitle={@recent_activity} />
 <div id="checkin">
-  <%= live_component @socket, LiveViewStudioWeb.VolunteerFormComponent, id: :new %> 
+  <.live_component module={LiveViewStudioWeb.VolunteerFormComponent} id="new" />
   <div id="volunteers" phx-update="prepend">
     <%= for volunteer <- @volunteers do %>
-      <%= live_component @socket, VolunteerComponent, volunteer: volunteer, id: volunteer.id %>
+      <.live_component module={VolunteerComponent} volunteer={volunteer} id={volunteer.id} />
     <% end %>
   </div>
 </div>

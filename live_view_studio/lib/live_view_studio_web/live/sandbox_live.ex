@@ -11,20 +11,20 @@ defmodule LiveViewStudioWeb.SandboxLive do
 
   def render(assigns) do
     ~H"""
-      <h1>Build a Sand box</h1>
-      <div id="sandbox">
-        <%= live_component @socket, SandboxCalculatorComponent,
-                            id: "calculator" %>
-        <%= live_component @socket, DeliveryChargeComponent, id: "zip-form" %>
-        <%= if @weight do %>
-          <QuoteComponent.quote
-              material="sand"
-              weight={@weight}
-              price={@price}
-              hrs_until_expires="4"
-              charge={@charge}/>
-        <% end %>
-      </div>
+    <h1>Build a Sand box</h1>
+    <div id="sandbox">
+      <.live_component module={SandboxCalculatorComponent} id="calculator" />
+      <.live_component module={DeliveryChargeComponent} id="zip-form" />
+      <%= if @weight do %>
+        <QuoteComponent.quote
+          material="sand"
+          weight={@weight}
+          price={@price}
+          hrs_until_expires="4"
+          charge={@charge}
+        />
+      <% end %>
+    </div>
     """
   end
 

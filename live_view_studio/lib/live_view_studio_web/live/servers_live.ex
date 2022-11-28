@@ -76,9 +76,9 @@ defmodule LiveViewStudioWeb.ServersLive do
     assigns = %{name: server.name, status: server.status}
 
     ~H"""
-      <span class={"status #{@status}"}></span>
-      <img src="/images/server.svg">
-      <%= @name %>
+    <span class={"status #{@status}"}></span>
+    <img src="/images/server.svg" />
+    <%= @name %>
     """
   end
 end

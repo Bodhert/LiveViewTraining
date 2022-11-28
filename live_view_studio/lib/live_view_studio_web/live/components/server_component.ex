@@ -7,16 +7,21 @@ defmodule LiveViewStudioWeb.ServerComponent do
     <div class="card">
       <div class="header">
         <h2><%= @selected_server.name %></h2>
-        <button class={@selected_server.status} phx-click="toggle-status"
-                phx_disable_with="Saving..." phx-value-name={@selected_server.name}
-                phx-target={@myself} id={"toggle-#{@selected_server.name}"}>
+        <button
+          class={@selected_server.status}
+          phx-click="toggle-status"
+          phx_disable_with="Saving..."
+          phx-value-name={@selected_server.name}
+          phx-target={@myself}
+          id={"toggle-#{@selected_server.name}"}
+        >
           <%= @selected_server.status %>
         </button>
       </div>
       <div class="body">
         <div class="row">
           <div class="deploys">
-            <img src="/images/deploy.svg">
+            <img src="/images/deploy.svg" />
             <span>
               <%= @selected_server.deploy_count %> deploys
             </span>
@@ -40,7 +45,7 @@ defmodule LiveViewStudioWeb.ServerComponent do
           <%= @selected_server.last_commit_message %>
         </blockquote>
       </div>
-      </div>
+    </div>
     """
   end
 

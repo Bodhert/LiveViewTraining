@@ -3,16 +3,18 @@ defmodule LiveViewStudioWeb.ModalComponent do
 
   def render(assigns) do
     ~H"""
-    <div class="phx-modal"
-          phx-window-keydown="close"
-          phx-key="escape"
-          phx-capture-click="close"
-          phx-target={@myself}>
-          <div class="phx-modal-content">
-            <%= live_patch raw("&times;"), to: @return_to, class: "phx-modal-close" %>
-            <%= live_component @socket, @component, @opts %>
-          </div>
-        </div>
+    <div
+      class="phx-modal"
+      phx-window-keydown="close"
+      phx-key="escape"
+      phx-capture-click="close"
+      phx-target={@myself}
+    >
+      <div class="phx-modal-content">
+        <%= live_patch(raw("&times;"), to: @return_to, class: "phx-modal-close") %>
+        <.live_component module={@component} id="modal-component" opts={@opts} />
+      </div>
+    </div>
     """
   end
 

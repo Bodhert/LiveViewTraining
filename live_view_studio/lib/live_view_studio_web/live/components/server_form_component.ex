@@ -13,17 +13,25 @@ defmodule LiveViewStudioWeb.ServerFormComponent do
   def render(assigns) do
     ~H"""
     <div>
-      <.form id="create-server" let={f} for={@changeset} url="#" phx-submit="save" phx-change="validate"
-          phx-target={@myself}>
-          <%= generate_input_field(f, :name, "Name") %>
-          <%= generate_input_field(f, :framework, "Framework") %>
-          <%= generate_input_field(f, :size, "Size (MB)") %>
-          <%= generate_input_field(f, :git_repo, "Git Repo") %>
-          <%= submit "Save", phx_disable_with: "Saving ...." %>
-          <%= live_patch "Cancel",
-                replace: true,
-                to: @return_to,
-                class: "cancel" %>
+      <.form
+        id="create-server"
+        let={f}
+        for={@changeset}
+        url="#"
+        phx-submit="save"
+        phx-change="validate"
+        phx-target={@myself}
+      >
+        <%= generate_input_field(f, :name, "Name") %>
+        <%= generate_input_field(f, :framework, "Framework") %>
+        <%= generate_input_field(f, :size, "Size (MB)") %>
+        <%= generate_input_field(f, :git_repo, "Git Repo") %>
+        <%= submit("Save", phx_disable_with: "Saving ....") %>
+        <%= live_patch("Cancel",
+          replace: true,
+          to: Keyword.fetch!(assigns.opts, :return_to),
+          class: "cancel"
+        ) %>
       </.form>
     </div>
     """
@@ -34,7 +42,7 @@ defmodule LiveViewStudioWeb.ServerFormComponent do
       {:ok, _server} ->
         socket =
           push_redirect(socket,
-            to: socket.assigns.return_to
+            to: Keyword.fetch!(socket.assigns.opts, :return_to)
           )
 
         {:noreply, socket}
@@ -60,12 +68,12 @@ defmodule LiveViewStudioWeb.ServerFormComponent do
     assigns = %{}
 
     ~H"""
-      <%= label form, placeholder %>
-      <%= text_input(form, field,
-        autocomplete: "off",
-        phx_debounce: "blur"
-      ) %>
-      <%= error_tag form, field %>
+    <%= label(form, placeholder) %>
+    <%= text_input(form, field,
+      autocomplete: "off",
+      phx_debounce: "blur"
+    ) %>
+    <%= error_tag(form, field) %>
     """
   end
 end

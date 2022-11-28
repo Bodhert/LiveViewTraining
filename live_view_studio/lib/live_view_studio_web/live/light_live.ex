@@ -108,7 +108,7 @@ defmodule LiveViewStudioWeb.LightLive do
     assigns = Enum.into(assigns, %{})
 
     ~H"""
-        <input type="radio" id={@temp} name="temperature" value={@temp} checked={@checked}/>
+        <input type="radio" id={to_string(@temp)} name="temperature" value={@temp} checked={@checked}/>
         <label for={@temp}><%= @temp %></label>
     """
   end
