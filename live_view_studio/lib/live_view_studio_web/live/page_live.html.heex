@@ -61,12 +61,12 @@
     <ul>
       <li>
         <%= live_redirect("Light",
-          to: Routes.live_path(@socket, LiveViewStudioWeb.LightLive)
+          to: ~p"/light"
         ) %>
       </li>
       <li>
         <%= live_redirect("Team License",
-          to: Routes.live_path(@socket, LiveViewStudioWeb.LicenseLive)
+          to: ~p"/license"
         ) %>
       </li>
       <li>

@@ -19,6 +19,7 @@ defmodule LiveViewStudioWeb.ConnCase do
 
   using do
     quote do
+      use LiveViewStudioWeb, :verified_routes
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest

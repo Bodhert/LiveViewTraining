@@ -17,6 +17,8 @@ defmodule LiveViewStudioWeb do
   and import those modules here.
   """
 
+  def static_paths, do: ~w(css fonts images js favicon.ico robots.txt uploads)
+
   def controller do
     quote do
       use Phoenix.Controller, namespace: LiveViewStudioWeb
@@ -24,6 +26,8 @@ defmodule LiveViewStudioWeb do
       import Plug.Conn
       import LiveViewStudioWeb.Gettext
       alias LiveViewStudioWeb.Router.Helpers, as: Routes
+
+      unquote(verified_routes())
     end
   end
 
@@ -93,6 +97,17 @@ defmodule LiveViewStudioWeb do
       import LiveViewStudioWeb.ErrorHelpers
       import LiveViewStudioWeb.Gettext
       alias LiveViewStudioWeb.Router.Helpers, as: Routes
+
+      unquote(verified_routes())
+    end
+  end
+
+  def verified_routes do
+    quote do
+      use Phoenix.VerifiedRoutes,
+        endpoint: LiveViewStudioWeb.Endpoint,
+        router: LiveViewStudioWeb.Router,
+        statics: LiveViewStudioWeb.static_paths()
     end
   end
 
