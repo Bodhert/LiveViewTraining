@@ -41,11 +41,7 @@ defmodule LiveViewStudioWeb.VehiclesLive do
 
     socket =
       push_patch(socket,
-        to:
-          Routes.live_path(socket, __MODULE__,
-            page: socket.assigns.options.page,
-            per_page: per_page
-          )
+        to: ~p"/vehicles?page=#{socket.assigns.options.page}&per_page=#{per_page}"
       )
 
     {:noreply, socket}

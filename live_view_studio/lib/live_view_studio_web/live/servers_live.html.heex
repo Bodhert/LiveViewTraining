@@ -4,13 +4,13 @@
     <nav>
       <%= live_patch("New Server",
         replace: true,
-        to: Routes.servers_path(@socket, :new),
+        to: ~p"/servers/new",
         class: "button"
       ) %>
       <%= for server <- @servers do %>
         <%= live_patch(link_body(server),
           replace: true,
-          to: Routes.live_path(@socket, __MODULE__, name: server.name),
+          to: ~p"/servers?name=#{server.name}",
           class: if(server == @selected_server, do: "active")
         ) %>
       <% end %>
@@ -19,16 +19,10 @@
   <div class="main" id="selected-server">
     <div class="wrapper">
       <%= if @live_action == :new do %>
-        <%!-- <.live_component
-          module={LiveViewStudioWeb.ModalComponent}
-          id="modal"
-          component={ServerFormComponent}
-          return_to={Routes.live_path(@socket, __MODULE__)}
-        /> --%>
         <%= live_modal(ServerFormComponent,
           id: :new,
           title: "Add New Server",
-          return_to: Routes.live_path(@socket, __MODULE__)
+          return_to: ~p"/servers"
         ) %>
       <% else %>
         <.live_component

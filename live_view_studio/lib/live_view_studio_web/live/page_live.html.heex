@@ -71,27 +71,27 @@
       </li>
       <li>
         <%= live_redirect("Sales Dashboard",
-          to: Routes.live_path(@socket, LiveViewStudioWeb.SalesDashboardLive)
+          to: ~p"/sales-dashboard"
         ) %>
       </li>
       <li>
         <%= live_redirect("Search",
-          to: Routes.live_path(@socket, LiveViewStudioWeb.SearchLive)
+          to: ~p"/search"
         ) %>
       </li>
       <li>
         <%= live_redirect("Autocomplete",
-          to: Routes.live_path(@socket, LiveViewStudioWeb.AutocompleteLive)
+          to: ~p"/autocomplete"
         ) %>
       </li>
       <li>
         <%= live_redirect("Filter",
-          to: Routes.live_path(@socket, LiveViewStudioWeb.FilterLive)
+          to: ~p"/filter"
         ) %>
       </li>
       <li>
         <%= live_redirect("Servers",
-          to: Routes.live_path(@socket, LiveViewStudioWeb.ServersLive)
+          to: ~p"/servers"
         ) %>
       </li>
     </ul>

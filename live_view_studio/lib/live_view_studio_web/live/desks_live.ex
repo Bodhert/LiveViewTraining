@@ -33,7 +33,7 @@ defmodule LiveViewStudioWeb.DesksLive do
 
     urls =
       for entry <- completed do
-        Routes.static_path(socket, "/uploads/#{filename(entry)}")
+        ~p"/uploads/#{filename(entry)}"
       end
 
     desk = %Desk{photo_urls: urls}
@@ -69,7 +69,7 @@ defmodule LiveViewStudioWeb.DesksLive do
     consume_uploaded_entries(socket, :photo, fn meta, entry ->
       dest = Path.join("priv/static/uploads", filename(entry))
       File.cp!(meta.path, dest)
-      {:ok, Routes.static_path(socket, "/uploads/#{filename(entry)}")}
+      {:ok, ~p"/uploads/#{filename(entry)}"}
     end)
 
     {:ok, desk}
