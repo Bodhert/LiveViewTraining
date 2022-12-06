@@ -5,10 +5,12 @@ defmodule LiveViewStudioWeb.CreaturesComponentTest do
   alias LiveViewStudioWeb.CreaturesComponent
 
   test "renders quote with 24-hour expiry by default" do
-    assigns = [
-      title: "test",
-      return_to: "/return_to"
-    ]
+    assigns = %{
+      opts: [
+        title: "test",
+        return_to: "/return_to"
+      ]
+    }
 
     html = render_component(&CreaturesComponent.render/1, assigns)
 

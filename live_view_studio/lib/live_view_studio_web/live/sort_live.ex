@@ -39,15 +39,16 @@ defmodule LiveViewStudioWeb.SortLive do
   def handle_event("select-per-page", %{"per-page" => per_page}, socket) do
     per_page = String.to_integer(per_page)
 
+    params = %{
+      sort_by: socket.assigns.options.sort_by,
+      sort_order: socket.assigns.options.sort_order,
+      page: socket.assigns.options.page,
+      per_page: per_page
+    }
+
     socket =
       push_patch(socket,
-        to:
-          Routes.live_path(socket, __MODULE__,
-            page: socket.assigns.options.page,
-            per_page: per_page,
-            sort_by: socket.assigns.options.sort_by,
-            sort_order: socket.assigns.options.sort_order
-          )
+        to: ~p"/sort?#{params}"
       )
 
     {:noreply, socket}
