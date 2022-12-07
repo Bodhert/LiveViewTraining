@@ -2,14 +2,14 @@ defmodule LiveViewStudioWeb.LicenseLiveTest do
   use LiveViewStudioWeb.ConnCase, async: true
 
   import Phoenix.LiveViewTest
-  import LiveViewStudio.AccountsFixtures
+  # import LiveViewStudio.AccountsFixtures
 
   test "Updating number of seats changes seats and amount", %{conn: conn} do
-    user = user_fixture()
+    # user = user_fixture()
 
     {:ok, view, _html} =
       conn
-      |> log_in_user(user)
+      # |> log_in_user(user)
       |> live("/license")
 
     assert has_element?(view, "#seats", "3")

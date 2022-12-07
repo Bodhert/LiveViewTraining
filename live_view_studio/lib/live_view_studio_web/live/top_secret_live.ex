@@ -1,8 +1,8 @@
 defmodule LiveViewStudioWeb.TopSecretLive do
   use LiveViewStudioWeb, :live_view
 
-  def mount(_params, session, socket) do
-    {:ok, assign_current_user(socket, session)}
+  def mount(_params, _session, socket) do
+    {:ok, socket}
   end
 
   def render(assigns) do
@@ -12,7 +12,7 @@ defmodule LiveViewStudioWeb.TopSecretLive do
       <img src="images/spy.svg" />
       <div class="mission">
         <h2>Your Mission</h2>
-        <h3><%= pad_id(@current_user) %></h3>
+        <h3><%= "TODO" %></h3>
         <p>
           (should you choose to accept it)
         </p>
